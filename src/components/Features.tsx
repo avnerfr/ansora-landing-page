@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { useEffect, useRef, useState } from "react";
->>>>>>> 06dca25 (many initial changes to the pages)
 import { Badge } from "./ui/badge";
 import {
   Card,
@@ -10,11 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-<<<<<<< HEAD
-import image from "../assets/growth.png";
-import image3 from "../assets/reflecting.png";
-import image4 from "../assets/looking-ahead.png";
-=======
 import person1 from "../assets/person1.png";
 import person2 from "../assets/person2.png";
 import person3 from "../assets/person3.png";
@@ -46,7 +38,6 @@ function animateScroll(
   };
   requestAnimationFrame(step);
 }
->>>>>>> 06dca25 (many initial changes to the pages)
 
 interface FeatureProps {
   title: string;
@@ -56,18 +47,6 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-<<<<<<< HEAD
-    title: "Responsive Design",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image4,
-  },
-  {
-    title: "Intuitive user interface",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image3,
-=======
     title: "How they actually say it",
     description:
       "See the exact words practitioners use when they talk about their work, and instantly spot where your copy sounds… not like that.",
@@ -89,15 +68,10 @@ const features: FeatureProps[] = [
     description:
       "Product Marketing can't keep up with the pace and complexity of technical products.",
     image: person4,
->>>>>>> 06dca25 (many initial changes to the pages)
   },
   {
     title: "AI-Powered insights",
     description:
-<<<<<<< HEAD
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: image,
-=======
       "Messaging is often generic, surface-level, and misaligned with the true practitioner pains.",
     image: person5,
   },
@@ -106,7 +80,6 @@ const features: FeatureProps[] = [
     description:
       "Transforms raw, noisy technical conversations into structured value.",
     image: person6,
->>>>>>> 06dca25 (many initial changes to the pages)
   },
 ];
 
@@ -123,17 +96,6 @@ const featureList: string[] = [
 ];
 
 export const Features = () => {
-<<<<<<< HEAD
-  return (
-    <section
-      id="features"
-      className="container py-24 sm:py-32 space-y-8"
-    >
-      <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Many{" "}
-        <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Great Features
-=======
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(400);
@@ -190,7 +152,6 @@ export const Features = () => {
         Ansora {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
           AI-Powered Insight Engine for Technical GTM Teams
->>>>>>> 06dca25 (many initial changes to the pages)
         </span>
       </h2>
 
@@ -207,25 +168,6 @@ export const Features = () => {
         ))}
       </div>
 
-<<<<<<< HEAD
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map(({ title, description, image }: FeatureProps) => (
-          <Card key={title}>
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-
-            <CardContent>{description}</CardContent>
-
-            <CardFooter>
-              <img
-                src={image}
-                alt="About feature"
-                className="w-[200px] lg:w-[300px] mx-auto"
-              />
-            </CardFooter>
-          </Card>
-=======
       <div
         ref={scrollRef}
         className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
@@ -253,7 +195,6 @@ export const Features = () => {
               </CardFooter>
             </Card>
           </div>
->>>>>>> 06dca25 (many initial changes to the pages)
         ))}
       </div>
     </section>

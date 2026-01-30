@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-import { LogoIcon } from "./Icons";
-
-export const Footer = () => {
-  return (
-    <footer id="footer">
-=======
 export const Footer = () => {
   return (
     <footer id="footer" className="bg-[hsl(var(--section-bg-7))]">
->>>>>>> 06dca25 (many initial changes to the pages)
       <hr className="w-11/12 mx-auto" />
 
       <section className="container py-20 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8">
@@ -16,12 +8,6 @@ export const Footer = () => {
           <a
             rel="noreferrer noopener"
             href="/"
-<<<<<<< HEAD
-            className="font-bold text-xl flex"
-          >
-            <LogoIcon />
-            ShadcnUI/React
-=======
             className="font-bold text-xl flex items-center gap-2"
           >
             <img
@@ -30,7 +16,6 @@ export const Footer = () => {
               className="h-8 w-8"
             />
             Ansora
->>>>>>> 06dca25 (many initial changes to the pages)
           </a>
         </div>
 
@@ -169,25 +154,14 @@ export const Footer = () => {
 
       <section className="container pb-14 text-center">
         <h3>
-<<<<<<< HEAD
-          &copy; 2024 Landing page made by{" "}
-          <a
-            rel="noreferrer noopener"
-            target="_blank"
-            href="https://www.linkedin.com/in/leopoldo-miranda/"
-            className="text-primary transition-all border-primary hover:border-b-2"
-          >
-            Leo Miranda
-=======
           &copy; 2026 Ansora{" "}
           <a
             rel="noreferrer noopener"
             target="_blank"
-            href="https://www.linkedin.com/ansora.tech/"
+            href="https://www.linkedin.com/company/ansora-tech/"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
-  
->>>>>>> 06dca25 (many initial changes to the pages)
+            Ansora
           </a>
         </h3>
       </section>
