@@ -76,7 +76,11 @@ export const Pricing = () => {
   return (
     <section
       id="pricing"
+<<<<<<< HEAD
       className="container py-24 sm:py-32"
+=======
+      className="container py-24 sm:py-32 bg-[hsl(var(--section-bg-4))]"
+>>>>>>> 06dca25 (many initial changes to the pages)
     >
       <h2 className="text-3xl md:text-4xl font-bold text-center">
         Get

@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     extend: {
+<<<<<<< HEAD
+=======
+      fontFamily: {
+        navbar: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+      },
+>>>>>>> 06dca25 (many initial changes to the pages)
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
