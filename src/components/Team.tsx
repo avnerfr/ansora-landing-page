@@ -8,20 +8,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
-<<<<<<< HEAD
-=======
 import sigalImg from "../assets/sigal.jpg";
 import avnerImg from "../assets/avner.jpg";
->>>>>>> 06dca25 (many initial changes to the pages)
 
 interface TeamProps {
   imageUrl: string;
   name: string;
   position: string;
-<<<<<<< HEAD
-=======
   description: string;
->>>>>>> 06dca25 (many initial changes to the pages)
   socialNetworks: SociaNetworkslProps[];
 }
 
@@ -32,19 +26,6 @@ interface SociaNetworkslProps {
 
 const teamList: TeamProps[] = [
   {
-<<<<<<< HEAD
-    imageUrl: "https://i.pravatar.cc/150?img=35",
-    name: "Emma Smith",
-    position: "Product Manager",
-    socialNetworks: [
-      {
-        name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
-      },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
-=======
     imageUrl: sigalImg,
     name: "Sigal Malki",
     position: "Co-Founder and CEO",
@@ -58,7 +39,6 @@ const teamList: TeamProps[] = [
       {
         name: "Facebook",
         url: "https://www.facebook.com/sigal.mendel.9",
->>>>>>> 06dca25 (many initial changes to the pages)
       },
       {
         name: "Instagram",
@@ -67,54 +47,6 @@ const teamList: TeamProps[] = [
     ],
   },
   {
-<<<<<<< HEAD
-    imageUrl: "https://i.pravatar.cc/150?img=60",
-    name: "John Doe",
-    position: "Tech Lead",
-    socialNetworks: [
-      {
-        name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
-      },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
-      },
-    ],
-  },
-  {
-    imageUrl: "https://i.pravatar.cc/150?img=36",
-    name: "Ashley Ross",
-    position: "Frontend Developer",
-    socialNetworks: [
-      {
-        name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
-      },
-
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
-      },
-    ],
-  },
-  {
-    imageUrl: "https://i.pravatar.cc/150?img=17",
-    name: "Bruce Rogers",
-    position: "Backend Developer",
-    socialNetworks: [
-      {
-        name: "Linkedin",
-        url: "https://www.linkedin.com/in/leopoldo-miranda/",
-      },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
-=======
     imageUrl: avnerImg,
     name: "Avner Freiberger",
     position: "Co-Founder and CTO",
@@ -132,7 +64,6 @@ const teamList: TeamProps[] = [
       {
         name: "Instagram",
         url: "https://www.instagram.com/avnerfr/",
->>>>>>> 06dca25 (many initial changes to the pages)
       },
     ],
   },
@@ -155,11 +86,7 @@ export const Team = () => {
   return (
     <section
       id="team"
-<<<<<<< HEAD
-      className="container py-24 sm:py-32"
-=======
       className="container py-24 sm:py-32 bg-[hsl(var(--section-bg-5))]"
->>>>>>> 06dca25 (many initial changes to the pages)
     >
       <h2 className="text-3xl md:text-4xl font-bold">
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
@@ -173,15 +100,9 @@ export const Team = () => {
         dolor pariatur sit!
       </p>
 
-<<<<<<< HEAD
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-10">
-        {teamList.map(
-          ({ imageUrl, name, position, socialNetworks }: TeamProps) => (
-=======
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gap-y-10 max-w-4xl mx-auto">
         {teamList.map(
           ({ imageUrl, name, position, description, socialNetworks }: TeamProps) => (
->>>>>>> 06dca25 (many initial changes to the pages)
             <Card
               key={name}
               className="bg-muted/50 relative mt-8 flex flex-col justify-center items-center"
@@ -199,11 +120,7 @@ export const Team = () => {
               </CardHeader>
 
               <CardContent className="text-center pb-2">
-<<<<<<< HEAD
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-=======
                 <p>{description}</p>
->>>>>>> 06dca25 (many initial changes to the pages)
               </CardContent>
 
               <CardFooter>

@@ -63,11 +63,7 @@ export const Testimonials = () => {
   return (
     <section
       id="testimonials"
-<<<<<<< HEAD
-      className="container py-24 sm:py-32"
-=======
       className="container py-24 sm:py-32 bg-[hsl(var(--section-bg-2))]"
->>>>>>> 06dca25 (many initial changes to the pages)
     >
       <h2 className="text-3xl md:text-4xl font-bold">
         Discover Why
