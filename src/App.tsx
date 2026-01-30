@@ -18,6 +18,7 @@ import "./App.css";
 function App() {
   return (
     <>
+<<<<<<< HEAD
       <Navbar />
       <Hero />
       <Sponsors />
@@ -30,6 +31,22 @@ function App() {
       <Team />
       <Pricing />
       <Newsletter />
+=======
+      {<Navbar /> }
+      <Features />
+      <Testimonials />
+      <HowItWorks />
+      {/* <Hero /> */}
+      {/* <Sponsors /> */}
+      {/* <About /> */}
+
+      {/* <Services /> */}
+      {/* <Cta /> */}
+      <Pricing />
+      <Team />
+
+      {/* <Newsletter /> */}
+>>>>>>> 06dca25 (many initial changes to the pages)
       <FAQ />
       <Footer />
       <ScrollToTop />

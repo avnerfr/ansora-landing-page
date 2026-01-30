@@ -12,11 +12,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+<<<<<<< HEAD
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
+=======
+import { buttonVariants } from "./ui/button";
+import { Menu } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
+>>>>>>> 06dca25 (many initial changes to the pages)
 
 interface RouteProps {
   href: string;
@@ -33,10 +39,24 @@ const routeList: RouteProps[] = [
     label: "Testimonials",
   },
   {
+<<<<<<< HEAD
+=======
+    href: "#howitworks",
+    label: "How It Works",
+  },
+  {
+>>>>>>> 06dca25 (many initial changes to the pages)
     href: "#pricing",
     label: "Pricing",
   },
   {
+<<<<<<< HEAD
+=======
+    href: "#team",
+    label: "Our Team",
+  },
+  {
+>>>>>>> 06dca25 (many initial changes to the pages)
     href: "#faq",
     label: "FAQ",
   },
@@ -45,17 +65,32 @@ const routeList: RouteProps[] = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
+<<<<<<< HEAD
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
+=======
+    <header className="font-navbar sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
+>>>>>>> 06dca25 (many initial changes to the pages)
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
             <a
               rel="noreferrer noopener"
               href="/"
+<<<<<<< HEAD
               className="ml-2 font-bold text-xl flex"
             >
               <LogoIcon />
               ShadcnUI/React
+=======
+              className="ml-2 font-bold text-xl flex items-center gap-2"
+            >
+              <img
+                src="/logo_no_background.png"
+                alt="Ansora"
+                className="h-8 w-8"
+              />
+              Ansora
+>>>>>>> 06dca25 (many initial changes to the pages)
             </a>
           </NavigationMenuItem>
 
@@ -89,13 +124,18 @@ export const Navbar = () => {
                       key={label}
                       href={href}
                       onClick={() => setIsOpen(false)}
+<<<<<<< HEAD
                       className={buttonVariants({ variant: "ghost" })}
+=======
+                      className={`text-lg ${buttonVariants({ variant: "ghost" })}`}
+>>>>>>> 06dca25 (many initial changes to the pages)
                     >
                       {label}
                     </a>
                   ))}
                   <a
                     rel="noreferrer noopener"
+<<<<<<< HEAD
                     href="https://github.com/leoMirandaa/shadcn-landing-page.git"
                     target="_blank"
                     className={`w-[110px] border ${buttonVariants({
@@ -104,6 +144,14 @@ export const Navbar = () => {
                   >
                     <GitHubLogoIcon className="mr-2 w-5 h-5" />
                     Github
+=======
+                    href="https://app.ansora.tech"
+                    target="_blank"
+                    onClick={() => setIsOpen(false)}
+                    className={`text-lg w-full justify-center ${buttonVariants({ variant: "default" })}`}
+                  >
+                    Account Login
+>>>>>>> 06dca25 (many initial changes to the pages)
                   </a>
                 </nav>
               </SheetContent>
@@ -117,7 +165,11 @@ export const Navbar = () => {
                 rel="noreferrer noopener"
                 href={route.href}
                 key={i}
+<<<<<<< HEAD
                 className={`text-[17px] ${buttonVariants({
+=======
+                className={`text-xl ${buttonVariants({
+>>>>>>> 06dca25 (many initial changes to the pages)
                   variant: "ghost",
                 })}`}
               >
@@ -126,6 +178,7 @@ export const Navbar = () => {
             ))}
           </nav>
 
+<<<<<<< HEAD
           <div className="hidden md:flex gap-2">
             <a
               rel="noreferrer noopener"
@@ -137,6 +190,17 @@ export const Navbar = () => {
               Github
             </a>
 
+=======
+          <div className="hidden md:flex gap-2 items-center">
+            <a
+              rel="noreferrer noopener"
+              href="https://app.ansora.tech"
+              target="_blank"
+              className={buttonVariants({ variant: "default" })}
+            >
+              Account Login
+            </a>
+>>>>>>> 06dca25 (many initial changes to the pages)
             <ModeToggle />
           </div>
         </NavigationMenuList>

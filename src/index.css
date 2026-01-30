@@ -2,6 +2,18 @@ html {
   scroll-behavior: smooth;
 }
 
+<<<<<<< HEAD
+=======
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+>>>>>>> 06dca25 (many initial changes to the pages)
 /* HeroCards background shadow */
 .shadow {
   position: absolute;

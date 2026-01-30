@@ -68,15 +68,47 @@
 } */
 
 /* *=========== Green theme =========== */
+<<<<<<< HEAD
 @layer base {
   :root {
     --background: 0 0% 100%;
+=======
+/* Section backgrounds (alternating shades for scroll contrast) */
+@layer base {
+  :root {
+    --section-bg-1: 220 10% 98%;
+    --section-bg-2: 220 8% 94%;
+    --section-bg-3: 220 10% 96%;
+    --section-bg-4: 220 8% 92%;
+    --section-bg-5: 220 10% 94%;
+    --section-bg-6: 220 8% 90%;
+    --section-bg-7: 220 6% 88%;
+  }
+  .dark {
+    --section-bg-1: 220 12% 10%;
+    --section-bg-2: 220 12% 14%;
+    --section-bg-3: 220 10% 12%;
+    --section-bg-4: 220 12% 16%;
+    --section-bg-5: 220 10% 14%;
+    --section-bg-6: 220 12% 18%;
+    --section-bg-7: 220 10% 16%;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 220 10% 96%;
+>>>>>>> 06dca25 (many initial changes to the pages)
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
+<<<<<<< HEAD
     --primary: 142.1 76.2% 36.3%;
+=======
+    --primary: 214.1 76.2% 36.3%;
+>>>>>>> 06dca25 (many initial changes to the pages)
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -88,18 +120,30 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
+<<<<<<< HEAD
     --ring: 142.1 76.2% 36.3%;
+=======
+    --ring: 214.1 76.2% 36.3%;
+>>>>>>> 06dca25 (many initial changes to the pages)
     --radius: 0.5rem;
   }
 
   .dark {
+<<<<<<< HEAD
     --background: 20 14.3% 4.1%;
+=======
+    --background: 220 12% 10%;
+>>>>>>> 06dca25 (many initial changes to the pages)
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
+<<<<<<< HEAD
     --primary: 142.1 70.6% 45.3%;
+=======
+    --primary: 214.1 70.6% 45.3%;
+>>>>>>> 06dca25 (many initial changes to the pages)
     --primary-foreground: 144.9 80.4% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -111,7 +155,11 @@
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
+<<<<<<< HEAD
     --ring: 142.4 71.8% 29.2%;
+=======
+    --ring: 214.1 71.8% 29.2%;
+>>>>>>> 06dca25 (many initial changes to the pages)
   }
 }
 

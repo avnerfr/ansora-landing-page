@@ -22,7 +22,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+<<<<<<< HEAD
     "build": "tsc && vite build",
+=======
+    "build": "npx tsc && vite build",
+>>>>>>> 06dca25 (many initial changes to the pages)
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
