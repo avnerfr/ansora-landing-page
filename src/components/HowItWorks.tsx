@@ -10,27 +10,27 @@ interface FeatureProps {
 const features: FeatureProps[] = [
   {
     icon: <MedalIcon />,
-    title: "Accessibility",
+    title: "Ingest Reality",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Ansora continuously absorbs real practitioner content from the wild",
   },
   {
     icon: <MapIcon />,
-    title: "Community",
+    title: "Structure Experience",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "We map who’s struggling, where, and why",
   },
   {
     icon: <PlaneIcon />,
-    title: "Scalability",
+    title: "What actually hurts",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Ansora shows you the pains your customers can’t stop talking about. What breaks most often. Who it hits hardest. And which problems are just background noise.,",
   },
   {
     icon: <GiftIcon />,
-    title: "Gamification",
+    title: "Write like an insider",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Pick a real pain. Write marketing that makes people say: “That’s my day-to-day.”.",
   },
 ];
 
