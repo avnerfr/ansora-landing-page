@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Badge } from "./ui/badge";
 import {
   Card,
   CardContent,
@@ -64,35 +63,23 @@ const features: FeatureProps[] = [
       "Every insight links back to where it was actually said, from forum threads to the exact second in a podcast or video.",
     image: person3,
   },  {
-    title: "Marketing Challenges",
+    title: "When messaging falls behind reality",
     description:
-      "Product Marketing can't keep up with the pace and complexity of technical products.",
+      "Spot where your current messaging no longer reflects what your market is actually dealing with.",
     image: person4,
   },
   {
-    title: "AI-Powered insights",
+    title: "Insights from the field",
     description:
-      "Messaging is often generic, surface-level, and misaligned with the true practitioner pains.",
+      "Understand what practitioners are struggling with based on real conversations, not assumptions or surveys.",
     image: person5,
   },
   {
-    title: "Transform Noise to Value",
+    title: "From raw talk to real signal",
     description:
-      "Transforms raw, noisy technical conversations into structured value.",
+      "Turn messy threads, complaints, and debates into clear, structured patterns you can actually use.",
     image: person6,
   },
-];
-
-const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
 ];
 
 export const Features = () => {
@@ -149,24 +136,15 @@ export const Features = () => {
       className="container py-24 sm:py-32 space-y-8 bg-[hsl(var(--section-bg-1))]"
     >
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Ansora {" "}
+        {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          AI-Powered Insight Engine for Technical GTM Teams
+          Understand your market’s pain, in their own words
         </span>
       </h2>
 
-      <div className="flex flex-wrap md:justify-center gap-4">
-        {featureList.map((feature: string) => (
-          <div key={feature}>
-            <Badge
-              variant="secondary"
-              className="text-sm"
-            >
-              {feature}
-            </Badge>
-          </div>
-        ))}
-      </div>
+      <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto mb-8">
+        Ansora turns real practitioner struggles into messaging that actually lands with technical buyers.
+      </p>
 
       <div
         ref={scrollRef}

@@ -30,7 +30,7 @@ const teamList: TeamProps[] = [
     name: "Sigal Malki",
     position: "Co-Founder and CEO",
     description:
-      "Sigal brings a strong background in product operations and cross-functional execution. She specializes in translating user needs into structured processes, ensuring products are delivered with clarity, consistency, and attention to detail. Sigal plays a key role in aligning strategy, execution, and user experience.",
+      "Product leader with 10+ years turning real user pain into products people actually use.",
     socialNetworks: [
       {
         name: "Linkedin",
@@ -51,7 +51,7 @@ const teamList: TeamProps[] = [
     name: "Avner Freiberger",
     position: "Co-Founder and CTO",
     description:
-      "Avner is a data, AI, and analytics leader with deep experience building data-driven products from zero to scale. He has led advanced analytics and machine-learning initiatives across multiple industries, combining strong technical depth with a sharp understanding of real customer problems. Avner focuses on turning complex data into clear, actionable insights that drive business impact.",
+      "Data & AI leader focused on extracting real signal from messy, real-world data.",
     socialNetworks: [
       {
         name: "Linkedin",
