@@ -1,34 +1,36 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon , CryIcon, EkgIcon, NotepadIcon, ToolsIcon} from "../components/Icons";
-import { Icon } from "lucide-react";
+import hiw_icon1 from "@/assets/hiw_icon1.png";
+import hiw_icon2 from "@/assets/hiw_icon2.png";
+import hiw_icon3 from "@/assets/hiw_icon3.png";
+import hiw_icon4 from "@/assets/hiw_icon4.png";
 
 interface FeatureProps {
-  icon: JSX.Element;
+  icon: string;
   title: string;
   description: string;
 }
 
 const features: FeatureProps[] = [
   {
-    icon: <MedalIcon />,
+    icon: hiw_icon1,
     title: "Ingest Reality",
     description:
       "Ansora continuously listens to real practitioners, across forums, Slack, podcasts, and more",
   },
   {
-    icon: < ToolsIcon />,
+    icon: hiw_icon2,
     title: "Structure the experience",
     description:
       "We map who’s struggling, where it happens, and what keeps coming up",
   },
   {
-    icon: <EkgIcon />,
+    icon: hiw_icon3,
     title: "Find what actually hurts",
     description:
       "See the pains people repeat, escalate, and get stuck onnot one-off complaints.,",
   },
   {
-    icon: <NotepadIcon />,
+    icon: hiw_icon4,
     title: "Write like an insider",
     description:
       "Use real language from real moments, the kind that makes people say:\n“Yeah. That’s my day.”",
@@ -60,7 +62,7 @@ export const HowItWorks = () => {
           >
             <CardHeader>
               <CardTitle className="grid gap-4 place-items-center">
-                {icon}
+                <img src={icon} alt="" className="w-12 h-12 object-contain" aria-hidden />
                 {title}
               </CardTitle>
             </CardHeader>

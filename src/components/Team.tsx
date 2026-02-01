@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import {  Linkedin } from "lucide-react";
 import sigalImg from "../assets/sigal.jpg";
 import avnerImg from "../assets/avner.jpg";
 
@@ -36,14 +36,6 @@ const teamList: TeamProps[] = [
         name: "Linkedin",
         url: "https://www.linkedin.com/in/sigal-mendel-malki-156062152/",
       },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/sigal.mendel.9",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
-      },
     ],
   },
   {
@@ -56,14 +48,6 @@ const teamList: TeamProps[] = [
       {
         name: "Linkedin",
         url: "https://www.linkedin.com/in/avnerfreiberger/",
-      },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/avner.freiberger/",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/avnerfr/",
       },
     ],
   },
@@ -90,14 +74,14 @@ export const Team = () => {
     >
       <h2 className="text-3xl md:text-4xl font-bold">
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Our Dedicated{" "}
+        Built by people who’ve lived the problem{" "}
         </span>
-        Crew
+        
       </h2>
 
       <p className="mt-4 mb-10 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+      Product and data leaders obsessed with turning real-world pain into real signals.
+      
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gap-y-10 max-w-4xl mx-auto">
