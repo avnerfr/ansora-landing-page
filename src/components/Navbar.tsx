@@ -131,7 +131,7 @@ export const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className={`text-lg w-full justify-center ${buttonVariants({ variant: "default" })}`}
                   >
-                    Account Login
+                    Login
                   </a>
                 </nav>
               </SheetContent>
@@ -167,7 +167,7 @@ export const Navbar = () => {
               target="_blank"
               className={buttonVariants({ variant: "default" })}
             >
-              Account Login
+              Login
             </a>
             <ModeToggle />
           </div>
