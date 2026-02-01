@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
+import { MedalIcon, MapIcon, PlaneIcon, GiftIcon , CryIcon, EkgIcon, NotepadIcon, ToolsIcon} from "../components/Icons";
+import { Icon } from "lucide-react";
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -12,25 +13,25 @@ const features: FeatureProps[] = [
     icon: <MedalIcon />,
     title: "Ingest Reality",
     description:
-      "Ansora continuously absorbs real practitioner content from the wild",
+      "Ansora continuously listens to real practitioners, across forums, Slack, podcasts, and more",
   },
   {
-    icon: <MapIcon />,
-    title: "Structure Experience",
+    icon: < ToolsIcon />,
+    title: "Structure the experience",
     description:
-      "We map who’s struggling, where, and why",
+      "We map who’s struggling, where it happens, and what keeps coming up",
   },
   {
-    icon: <PlaneIcon />,
-    title: "What actually hurts",
+    icon: <EkgIcon />,
+    title: "Find what actually hurts",
     description:
-      "Ansora shows you the pains your customers can’t stop talking about. What breaks most often. Who it hits hardest. And which problems are just background noise.,",
+      "See the pains people repeat, escalate, and get stuck onnot one-off complaints.,",
   },
   {
-    icon: <GiftIcon />,
+    icon: <NotepadIcon />,
     title: "Write like an insider",
     description:
-      "Pick a real pain. Write marketing that makes people say: “That’s my day-to-day.”.",
+      "Use real language from real moments, the kind that makes people say:\n“Yeah. That’s my day.”",
   },
 ];
 
@@ -41,15 +42,14 @@ export const HowItWorks = () => {
       className="container text-center py-24 sm:py-32"
     >
       <h2 className="text-3xl md:text-4xl font-bold ">
-        How It{" "}
+        How {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Works{" "}
+          Ansora{" "}
         </span>
-        Step-by-Step Guide
+        turns noise into signal
       </h2>
       <p className="md:w-3/4 mx-auto mt-4 mb-8 text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        From raw conversations to insights you can actually use
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

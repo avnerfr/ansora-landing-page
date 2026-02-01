@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -55,9 +56,8 @@ export const Navbar = () => {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <a
-              rel="noreferrer noopener"
-              href="/"
+            <Link
+              to="/"
               className="ml-2 font-bold text-xl flex items-center gap-2"
             >
               <img
@@ -66,7 +66,7 @@ export const Navbar = () => {
                 className="h-8 w-8"
               />
               Ansora
-            </a>
+            </Link>
           </NavigationMenuItem>
 
           {/* mobile */}
@@ -104,6 +104,13 @@ export const Navbar = () => {
                       {label}
                     </a>
                   ))}
+                  <Link
+                    to="/book-a-demo"
+                    onClick={() => setIsOpen(false)}
+                    className={`text-lg w-full justify-center ${buttonVariants({ variant: "outline" })}`}
+                  >
+                    Book a Demo
+                  </Link>
                   <a
                     rel="noreferrer noopener"
                     href="https://app.ansora.tech"
@@ -135,6 +142,12 @@ export const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex gap-2 items-center">
+            <Link
+              to="/book-a-demo"
+              className={buttonVariants({ variant: "outline" })}
+            >
+              Book a Demo
+            </Link>
             <a
               rel="noreferrer noopener"
               href="https://app.ansora.tech"
