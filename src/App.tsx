@@ -1,27 +1,14 @@
-import { FAQ } from "./components/FAQ";
-import { Features } from "./components/Features";
-import { Footer } from "./components/Footer";
-import { HowItWorks } from "./components/HowItWorks";
-import { Navbar } from "./components/Navbar";
-import { Pricing } from "./components/Pricing";
-import { ScrollToTop } from "./components/ScrollToTop";
-import { Team } from "./components/Team";
-import { Testimonials } from "./components/Testimonials";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "@/pages/Home";
+import { BookDemo } from "@/pages/BookDemo";
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Features />
-      <Testimonials />
-      <HowItWorks />
-      <Pricing />
-      <Team />
-      <FAQ />
-      <Footer />
-      <ScrollToTop />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/book-a-demo" element={<BookDemo />} />
+    </Routes>
   );
 }
 

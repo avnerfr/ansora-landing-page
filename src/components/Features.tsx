@@ -14,7 +14,7 @@ import person5 from "../assets/person5.png";
 import person6 from "../assets/person6.png";
 
 const GAP = 32;
-const PAUSE_MS = 2000;
+const PAUSE_MS = 6000;
 const SCROLL_DURATION_MS = 900;
 
 function animateScroll(
@@ -86,6 +86,7 @@ export const Features = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(400);
+  const [isAutoAdvancePaused, setIsAutoAdvancePaused] = useState(false);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -104,15 +105,16 @@ export const Features = () => {
   const isAtDuplicateStart = currentIndex === features.length;
 
   useEffect(() => {
+    if (isAutoAdvancePaused) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % stepCount);
     }, PAUSE_MS);
     return () => clearInterval(interval);
-  }, [stepCount]);
+  }, [stepCount, isAutoAdvancePaused]);
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (!el || cardWidth < 1) return;
+    if (!el || cardWidth < 1 || isAutoAdvancePaused) return;
 
     const targetScroll = currentIndex * (cardWidth + GAP);
 
@@ -128,7 +130,7 @@ export const Features = () => {
       }
     });
     return () => cancelAnimationFrame(rafId);
-  }, [currentIndex, cardWidth, isAtDuplicateStart]);
+  }, [currentIndex, cardWidth, isAtDuplicateStart, isAutoAdvancePaused]);
 
   return (
     <section
@@ -148,8 +150,11 @@ export const Features = () => {
 
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+        className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide touch-pan-x"
         style={{ gap: GAP, scrollBehavior: "auto", scrollSnapType: "none" }}
+        onTouchStart={() => setIsAutoAdvancePaused(true)}
+        onPointerDown={() => setIsAutoAdvancePaused(true)}
+        onWheel={() => setIsAutoAdvancePaused(true)}
       >
         {[...features, ...features].map(({ title, description, image }: FeatureProps, index) => (
           <div
