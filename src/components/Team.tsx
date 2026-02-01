@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {  Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import sigalImg from "../assets/sigal.jpg";
 import avnerImg from "../assets/avner.jpg";
 
