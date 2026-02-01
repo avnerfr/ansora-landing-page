@@ -8,7 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { cn } from "@/lib/utils";
 
 const DEMO_EMAIL = "ansora.tech@gmail.com";
-const API_URL = import.meta.env.VITE_API_URL ?? "";
+/** Base URL for API (empty = same origin; set VITE_API_URL when API is on another host) */
+const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
 export const BookDemo = () => {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -19,7 +20,7 @@ export const BookDemo = () => {
     setStatus("sending");
 
     try {
-      const res = await fetch(`${API_URL}/api/send-demo`, {
+      const res = await fetch(`${API_BASE}/api/send-demo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
