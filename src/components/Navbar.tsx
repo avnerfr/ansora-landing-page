@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -28,16 +28,8 @@ const routeList: RouteProps[] = [
     label: "Features",
   },
   {
-    href: "#testimonials",
-    label: "Testimonials",
-  },
-  {
     href: "#howitworks",
     label: "How It Works",
-  },
-  {
-    href: "#pricing",
-    label: "Pricing",
   },
   {
     href: "#team",
@@ -51,22 +43,43 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
     <header className="font-navbar sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <Link
-              to="/"
-              className="ml-2 font-bold text-xl flex items-center gap-2"
-            >
-              <img
-                src="/logo_no_background.png"
-                alt="Ansora"
-                className="h-8 w-8"
-              />
-              Ansora
-            </Link>
+            {isHome ? (
+              <a
+                href="#hero"
+                className="ml-2 font-bold text-xl flex items-center gap-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              >
+                <img
+                  src="/logo_no_background.png"
+                  alt="Ansora"
+                  className="h-8 w-8"
+                />
+                Ansora
+              </a>
+            ) : (
+              <Link
+                to="/"
+                className="ml-2 font-bold text-xl flex items-center gap-2"
+              >
+                <img
+                  src="/logo_no_background.png"
+                  alt="Ansora"
+                  className="h-8 w-8"
+                />
+                Ansora
+              </Link>
+            )}
           </NavigationMenuItem>
 
           {/* mobile */}

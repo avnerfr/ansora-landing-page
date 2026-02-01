@@ -48,36 +48,36 @@ const features: FeatureProps[] = [
   {
     title: "How they actually say it",
     description:
-      "See the exact words practitioners use when they talk about their work, and instantly spot where your copy sounds… not like that.",
+      "See the words your buyers really use, and spot where your copy misses.",
     image: person1,
   },
   {
     title: "No theory. Just work.",
     description:
-      "Every insight comes from a real breakdown in real work. No abstract pains. No imagined problems.",
+      "Every insight comes from real breakdowns in real workflows.",
     image: person2,
   },
   {
     title: "Always backed by reality",
     description:
-      "Every insight links back to where it was actually said, from forum threads to the exact second in a podcast or video.",
+      "Every insight links back to where it was actually said.",
     image: person3,
   },  {
-    title: "When messaging falls behind reality",
+    title: "When messaging falls behind",
     description:
-      "Spot where your current messaging no longer reflects what your market is actually dealing with.",
+      "Your market moved on. Your messaging didn’t.",
     image: person4,
   },
   {
     title: "Insights from the field",
     description:
-      "Understand what practitioners are struggling with based on real conversations, not assumptions or surveys.",
+      "Real problems, straight from real people. No surveys. No guessing.",
     image: person5,
   },
   {
     title: "From raw talk to real signal",
     description:
-      "Turn messy threads, complaints, and debates into clear, structured patterns you can actually use.",
+      "Messy threads in. Clear patterns out.",
     image: person6,
   },
 ];
@@ -140,12 +140,12 @@ export const Features = () => {
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
         {" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Understand your market’s pain, in their own words
+        Hear what your market is really saying
         </span>
       </h2>
 
       <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto mb-8">
-        Ansora turns real practitioner struggles into messaging that actually lands with technical buyers.
+      Not surveys. Not assumptions. Real struggles, in their own words.
       </p>
 
       <div
