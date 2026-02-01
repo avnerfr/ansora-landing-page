@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
 const DEMO_EMAIL = "ansora.tech@gmail.com";
+const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 export const BookDemo = () => {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -18,39 +18,26 @@ export const BookDemo = () => {
     e.preventDefault();
     setStatus("sending");
 
-    if (FORMSPREE_ID) {
-      try {
-        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _replyto: formData.email,
-            name: formData.name,
-            email: formData.email,
-            company: formData.company,
-            message: formData.message,
-            _subject: `Book a Demo request from ${formData.name}`,
-          }),
-        });
-        if (res.ok) {
-          setStatus("success");
-          setFormData({ name: "", email: "", company: "", message: "" });
-        } else {
-          setStatus("error");
-        }
-      } catch {
+    try {
+      const res = await fetch(`${API_URL}/api/send-demo`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message,
+        }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", company: "", message: "" });
+      } else {
         setStatus("error");
       }
-      return;
+    } catch {
+      setStatus("error");
     }
-
-    // Fallback: open mailto (sends to ansora.tech@gmail.com)
-    const subject = encodeURIComponent(`Book a Demo request from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || "—"}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:${DEMO_EMAIL}?subject=${subject}&body=${body}`;
-    setStatus("success");
   };
 
   return (
@@ -72,9 +59,7 @@ export const BookDemo = () => {
             <CardContent>
               {status === "success" && (
                 <div className="mb-4 rounded-md bg-green-500/10 text-green-700 dark:text-green-400 p-3 text-sm">
-                  {FORMSPREE_ID
-                    ? "Thanks! We’ve received your request and will be in touch soon."
-                    : "Your email client should open with a pre-filled message. Send it to complete your request."}
+                  Thanks! We’ve received your request and will be in touch soon.
                 </div>
               )}
               {status === "error" && (
