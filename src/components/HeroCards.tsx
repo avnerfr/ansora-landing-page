@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Mail } from "lucide-react";
 import screenshotPains from "@/assets/screenshot_pains.png";
+import assetTeaser from "@/assets/asset_teaser.png";
 
 const SlackIcon = () => (
   <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
@@ -52,8 +53,19 @@ const cabQuotes = [
 export const HeroCards = () => {
   return (
     <div className="hidden lg:flex flex-row flex-wrap gap-8 relative w-[700px] h-[500px]">
+      {/* Asset teaser - rendered first so other cards stack on top and cover part of it */}
+    <Card className="absolute right-[90px] bottom-4 w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-10">
+       <CardHeader className="p-0">
+          <img
+            src={assetTeaser}
+            alt="Asset teaser"
+            className="w-full h-auto object-cover"
+          />
+        </CardHeader>
+      </Card>
+
       {/* CAB approvals card - above the map, lowered */}
-      <Card className="absolute left-0 w-[300px] top-28 drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-2">
+      <Card className="absolute left-0 w-[300px] top-28 z-10 drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-2">
         <CardHeader className="p-0 pb-1.5">
           <CardTitle className="text-sm font-bold leading-tight">
             Waiting on CAB approvals - 39 mentions
@@ -82,7 +94,7 @@ export const HeroCards = () => {
       </Card>
 
       {/* Screenshot: pains */}
-      <Card className="absolute right-[20px] top-4 w-[420px] overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
+      <Card className="absolute right-[20px] top-4 w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
         <CardHeader className="p-0">
           <img
             src={screenshotPains}
