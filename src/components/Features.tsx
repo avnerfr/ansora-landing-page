@@ -14,8 +14,9 @@ import person5 from "../assets/person5.png";
 import person6 from "../assets/person6.png";
 
 const GAP = 32;
-const PAUSE_MS = 6000;
+const PAUSE_MS = 2000;
 const SCROLL_DURATION_MS = 900;
+const CLICK_PAUSE_MS = 3000;
 
 function animateScroll(
   el: HTMLElement,
@@ -82,11 +83,46 @@ const features: FeatureProps[] = [
   },
 ];
 
+const TAP_MOVE_THRESHOLD_PX = 10;
+const TAP_MAX_DURATION_MS = 400;
+
 export const Features = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pointerStartRef = useRef<{ x: number; t: number } | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(400);
   const [isAutoAdvancePaused, setIsAutoAdvancePaused] = useState(false);
+
+  const handleCardClick = () => {
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    setIsAutoAdvancePaused(true);
+    pauseTimeoutRef.current = setTimeout(() => {
+      pauseTimeoutRef.current = null;
+      setIsAutoAdvancePaused(false);
+    }, CLICK_PAUSE_MS);
+  };
+
+  const handleCardPointerDown = (e: React.PointerEvent) => {
+    pointerStartRef.current = { x: e.clientX, t: Date.now() };
+  };
+
+  const handleCardPointerUp = (e: React.PointerEvent) => {
+    const start = pointerStartRef.current;
+    pointerStartRef.current = null;
+    if (!start) return;
+    const dx = Math.abs(e.clientX - start.x);
+    const dt = Date.now() - start.t;
+    if (dx <= TAP_MOVE_THRESHOLD_PX && dt <= TAP_MAX_DURATION_MS) {
+      handleCardClick();
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -159,8 +195,19 @@ export const Features = () => {
         {[...features, ...features].map(({ title, description, image }: FeatureProps, index) => (
           <div
             key={`${title}-${index}`}
-            className="flex-shrink-0"
+            className="flex-shrink-0 cursor-pointer touch-pan-x"
             style={{ width: cardWidth, minWidth: cardWidth }}
+            onPointerDown={handleCardPointerDown}
+            onPointerUp={handleCardPointerUp}
+            onPointerCancel={() => { pointerStartRef.current = null; }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleCardClick();
+              }
+            }}
           >
             <Card className="h-full">
               <CardHeader>

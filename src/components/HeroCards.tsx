@@ -52,20 +52,9 @@ const cabQuotes = [
 
 export const HeroCards = () => {
   return (
-    <div className="hidden lg:flex flex-row flex-wrap gap-8 relative w-[700px] h-[500px]">
-      {/* Asset teaser - rendered first so other cards stack on top and cover part of it */}
-    <Card className="absolute right-[90px] bottom-4 w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-10">
-       <CardHeader className="p-0">
-          <img
-            src={assetTeaser}
-            alt="Asset teaser"
-            className="w-full h-auto object-cover"
-          />
-        </CardHeader>
-      </Card>
-
-      {/* CAB approvals card - above the map, lowered */}
-      <Card className="absolute left-0 w-[300px] top-28 z-10 drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-2">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 relative w-full max-w-[700px] lg:w-[700px] lg:h-[500px]">
+      {/* CAB approvals card - first on mobile stack */}
+      <Card className="order-1 w-full max-w-[300px] lg:max-w-none lg:absolute lg:left-0 lg:top-28 lg:w-[300px] z-10 drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-2">
         <CardHeader className="p-0 pb-1.5">
           <CardTitle className="text-sm font-bold leading-tight">
             Waiting on CAB approvals - 39 mentions
@@ -93,12 +82,23 @@ export const HeroCards = () => {
         </CardFooter>
       </Card>
 
-      {/* Screenshot: pains */}
-      <Card className="absolute right-[20px] top-4 w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
+      {/* Screenshot: pains - second on mobile stack */}
+      <Card className="order-2 w-full max-w-[420px] lg:max-w-none lg:absolute lg:right-[20px] lg:top-4 lg:w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
         <CardHeader className="p-0">
           <img
             src={screenshotPains}
             alt="Screenshot of pains"
+            className="w-full h-auto object-cover"
+          />
+        </CardHeader>
+      </Card>
+
+      {/* Asset teaser - third on mobile stack; on desktop rendered first so other cards can overlap */}
+      <Card className="order-3 w-full max-w-[320px] lg:max-w-none lg:absolute lg:right-[90px] lg:bottom-4 lg:w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-0">
+        <CardHeader className="p-0">
+          <img
+            src={assetTeaser}
+            alt="Asset teaser"
             className="w-full h-auto object-cover"
           />
         </CardHeader>
