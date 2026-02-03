@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,7 @@ import {
 
 interface FAQProps {
   question: string;
-  answer: string;
+  answer: string | React.ReactNode;
   value: string;
 }
 
@@ -35,7 +36,14 @@ const FAQList: FAQProps[] = [
   },
   {
     question: "How do we get started with Ansora?",
-    answer: "Book a short demo to align on your market and audience. Onboarding takes minutes. You then get a full month to explore Ansora hands-on, free. By the end of the month, it’s very clear whether Ansora reflects your market’s reality or not.",
+    answer: (
+      <>
+        <Link to="/book-a-demo" className="text-primary font-medium underline underline-offset-4 hover:no-underline">
+          Book a short demo
+        </Link>{" "}
+        to align on your market and audience. Onboarding takes minutes. You then get a full month to explore Ansora hands-on, free. By the end of the month, it’s very clear whether Ansora reflects your market’s reality or not.
+      </>
+    ),
     value: "item-5",
   },
 ];
