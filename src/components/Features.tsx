@@ -186,7 +186,7 @@ export const Features = () => {
 
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide touch-pan-x"
+        className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide touch-pan-x touch-pan-y"
         style={{ gap: GAP, scrollBehavior: "auto", scrollSnapType: "none" }}
         onTouchStart={() => setIsAutoAdvancePaused(true)}
         onPointerDown={() => setIsAutoAdvancePaused(true)}
@@ -195,7 +195,7 @@ export const Features = () => {
         {[...features, ...features].map(({ title, description, image }: FeatureProps, index) => (
           <div
             key={`${title}-${index}`}
-            className="flex-shrink-0 cursor-pointer touch-pan-x"
+            className="flex-shrink-0 cursor-pointer touch-pan-x touch-pan-y"
             style={{ width: cardWidth, minWidth: cardWidth }}
             onPointerDown={handleCardPointerDown}
             onPointerUp={handleCardPointerUp}
