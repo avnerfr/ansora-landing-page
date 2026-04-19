@@ -24,7 +24,7 @@ export const Footer = () => {
           <a
             rel="noreferrer noopener"
             target="_blank"
-            href="https://www.linkedin.com/company/ansora-tech/"
+            href="https://www.linkedin.com/company/ansora-ai/"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
             Ansora
