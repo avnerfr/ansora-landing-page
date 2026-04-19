@@ -83,7 +83,7 @@ export const HeroCards = () => {
       </Card>
 
       {/* Screenshot: pains - second on mobile stack */}
-      <Card className="order-2 w-full max-w-[420px] lg:max-w-none lg:absolute lg:right-[20px] lg:top-4 lg:w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
+      <Card className="order-3 w-full max-w-[420px] lg:max-w-none lg:absolute lg:right-[20px] lg:top-4 lg:w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
         <CardHeader className="p-0">
           <img
             src={screenshotPains}
@@ -94,7 +94,7 @@ export const HeroCards = () => {
       </Card>
 
       {/* Asset teaser - third on mobile stack; on desktop rendered first so other cards can overlap */}
-      <Card className="order-3 w-full max-w-[320px] lg:max-w-none lg:absolute lg:right-[90px] lg:bottom-4 lg:w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-0">
+      <Card className="order-2 w-full max-w-[320px] lg:max-w-none lg:absolute lg:right-[90px] lg:bottom-4 lg:w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-0">
         <CardHeader className="p-0">
           <img
             src={assetTeaser}
