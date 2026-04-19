@@ -15,7 +15,7 @@ const FROM_EMAIL = process.env.SES_FROM_EMAIL ?? "sales@ansora.io";
 const TO_EMAIL = process.env.SES_TO_EMAIL ?? "sales@ansora.io";
 
 export default async function handler(
-  req: { method?: string; body?: string },
+  req: { method?: string; body?: unknown },
   res: { status: (code: number) => { json: (body: object) => void }; setHeader: (name: string, value: string) => void }
 ) {
   res.setHeader("Access-Control-Allow-Origin", "*");
