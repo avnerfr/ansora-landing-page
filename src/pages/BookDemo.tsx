@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-const DEMO_EMAIL = "ansora.tech@gmail.com";
+const DEMO_EMAIL = "sales@ansora.io";
 /** Base URL for API (empty = same origin; set VITE_API_URL when API is on another host) */
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 

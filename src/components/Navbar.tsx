@@ -126,7 +126,7 @@ export const Navbar = () => {
                   </Link>
                   <a
                     rel="noreferrer noopener"
-                    href="https://app.ansora.tech"
+                    href="https://app.ansora.io"
                     target="_blank"
                     onClick={() => setIsOpen(false)}
                     className={`text-lg w-full justify-center ${buttonVariants({ variant: "default" })}`}
@@ -163,7 +163,7 @@ export const Navbar = () => {
             </Link>
             <a
               rel="noreferrer noopener"
-              href="https://app.ansora.tech"
+              href="https://app.ansora.io"
               target="_blank"
               className={buttonVariants({ variant: "default" })}
             >

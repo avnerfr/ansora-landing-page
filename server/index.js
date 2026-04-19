@@ -23,8 +23,8 @@ const ses = new SESClient({
       : undefined,
 });
 
-const FROM_EMAIL = process.env.SES_FROM_EMAIL || "noreply@example.com";
-const TO_EMAIL = process.env.SES_TO_EMAIL || "ansora.tech@gmail.com";
+const FROM_EMAIL = process.env.SES_FROM_EMAIL || "sales@ansora.io";
+const TO_EMAIL = process.env.SES_TO_EMAIL || "sales@ansora.io";
 const PORT = process.env.PORT || 3001;
 
 app.use((_req, res, next) => {
