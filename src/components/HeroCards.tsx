@@ -6,8 +6,8 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Mail } from "lucide-react";
-import screenshotPains from "@/assets/screenshot_pains.png";
-import assetTeaser from "@/assets/asset_teaser.png";
+import screenshotPains from "@/assets/asset_teaser.png";
+import assetTeaser from "@/assets/screenshot_pains.png";
 
 const SlackIcon = () => (
   <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
