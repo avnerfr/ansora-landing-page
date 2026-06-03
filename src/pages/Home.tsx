@@ -6,7 +6,6 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Navbar } from "@/components/Navbar";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { Team } from "@/components/Team";
 export const Home = () => {
   useEffect(() => {
     const hero = document.getElementById("hero");
@@ -19,7 +18,6 @@ export const Home = () => {
       <Hero />
       <Features />
       <HowItWorks />
-      <Team />
       <FAQ />
       <Footer />
       <ScrollToTop />

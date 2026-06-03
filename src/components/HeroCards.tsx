@@ -1,108 +1,252 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
-import { Mail } from "lucide-react";
-import screenshotPains from "@/assets/asset_teaser.png";
-import assetTeaser from "@/assets/screenshot_pains.png";
+import { useState, useEffect, useRef } from "react";
 
-const SlackIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521v6.313a2.528 2.528 0 0 1-2.521 2.521 2.527 2.527 0 0 1-2.521-2.521V8.834a2.527 2.527 0 0 1 2.521-2.521zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.521-2.523v-6.312a2.527 2.527 0 0 1 2.521-2.52 2.528 2.528 0 0 1 2.523 2.52v6.312a2.528 2.528 0 0 1-2.523 2.523z" />
-  </svg>
-);
-const RedditIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12.056a1.258 1.258 0 1 0 0 2.516 1.258 1.258 0 0 0 0-2.516zm5.5 0a1.258 1.258 0 1 0 0 2.516 1.258 1.258 0 0 0 0-2.516zm-5.466 3.99a.27.27 0 0 1 .274.274c0 .15-.123.274-.274.274a.274.274 0 0 1-.274-.274.27.27 0 0 1 .274-.274zm5.5 0a.27.27 0 0 1 .274.274c0 .15-.123.274-.274.274a.274.274 0 0 1-.274-.274.27.27 0 0 1 .274-.274z" />
-  </svg>
-);
-const YoutubeIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-  </svg>
-);
-const TeamsIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M20.625 8.127v7.746a1.127 1.127 0 0 1-1.127 1.127h-7.746a1.127 1.127 0 0 1-1.127-1.127V8.127A1.127 1.127 0 0 1 11.752 7h7.746a1.127 1.127 0 0 1 1.127 1.127zM12 12l-3.373 2.56v-5.12L12 12zm-1.127-4.127v2.56L7.5 12v-2.56l3.373-2.56h.001zM3.375 15.873V8.127A1.127 1.127 0 0 1 4.502 7h7.746a1.127 1.127 0 0 1 1.127 1.127v7.746a1.127 1.127 0 0 1-1.127 1.127H4.502a1.127 1.127 0 0 1-1.127-1.127z" />
-  </svg>
-);
-const DiscordIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-  </svg>
-);
-const SpotifyIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.3.42-.87.56-1.32.24-3.24-1.98-8.16-2.58-11.94-1.38-.48.14-1.02-.06-1.16-.54-.12-.48.06-1.02.54-1.2 4.32-1.26 9.72-.66 13.2 1.98.42.24.54.84.24 1.26zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.15-1.38-.72-.18-.6.15-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z" />
-  </svg>
-);
+const CANVAS_W = 640;
+const CANVAS_H = 460;
+const GAP = 14; // min px between circle edges
 
-const cabQuotes = [
-  { icon: SlackIcon, text: "Everything's ready to ship. Still waiting for someone to approve it.", color: "bg-[#4A154B]" },
-  { icon: RedditIcon, text: "The code works. The pipeline works. The process doesn't.", color: "bg-[#FF4500]" },
-  { icon: YoutubeIcon, text: "Nobody said no. Nobody said yes. So nothing moves.", color: "bg-[#FF0000]" },
-  { icon: TeamsIcon, text: "It's been 'pending review' for over a week. No one seems to own the decision.", color: "bg-[#6264A7]" },
-  { icon: DiscordIcon, text: "We're not blocked by bugs. We're blocked by approvals.", color: "bg-[#5865F2]" },
-  { icon: SpotifyIcon, text: "Our release isn't delayed by tech. It's delayed by meetings.", color: "bg-[#1DB954]" },
-  { icon: Mail, text: "CAB meets once a week. Miss it once and you're stuck.", color: "bg-slate-600", fullWidth: true },
+const painTexts = [
+  "Hybrid Path Blindness",
+  "Lost Azure Traffic",
+  "Invisible Policy Outcomes",
+  "Inconsistent Security Controls",
+  "VPN Path Fog",
+  "Untraceable Network Breaks",
+  "Rule Intent Fog",
+  "Zero Trust Visibility",
+  "Security Group Blindness",
 ];
 
+const bubbleMeta = [
+  { mentions: 34, trend: "up"   as const, bg: "#EDE9FE", fg: "#5B21B6" },
+  { mentions: 27, trend: "down" as const, bg: "#FCE7F3", fg: "#9D174D" },
+  { mentions: 19, trend: "up"   as const, bg: "#D1FAE5", fg: "#065F46" },
+  { mentions: 42, trend: "up"   as const, bg: "#FFEDD5", fg: "#C2410C" },
+  { mentions: 15, trend: "down" as const, bg: "#FEF9C3", fg: "#854D0E" },
+  { mentions: 23, trend: "up"   as const, bg: "#DBEAFE", fg: "#1E40AF" },
+  { mentions: 11, trend: "down" as const, bg: "#CCFBF1", fg: "#0F766E" },
+  { mentions: 38, trend: "up"   as const, bg: "#FFE4E6", fg: "#9F1239" },
+  { mentions: 29, trend: "up"   as const, bg: "#E0E7FF", fg: "#3730A3" },
+];
+
+// Seeded LCG so layout is stable across renders
+function makeRng(seed: number) {
+  let s = seed;
+  return () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+interface PlacedBubble {
+  id: number;
+  text: string;
+  mentions: number;
+  trend: "up" | "down";
+  bg: string;
+  fg: string;
+  size: number;
+  left: number;
+  top: number;
+  cx: number;
+  cy: number;
+}
+
+function generateLayout(): PlacedBubble[] {
+  const rng = makeRng(17); // seed chosen for good spread
+  const placed: PlacedBubble[] = [];
+
+  for (let i = 0; i < painTexts.length; i++) {
+    // Size proportional to mentions, plus small random jitter
+    const { mentions } = bubbleMeta[i];
+    const minM = 11, maxM = 42;
+    const t = (mentions - minM) / (maxM - minM);
+    const size = Math.round(72 + t * 44 + (rng() - 0.5) * 10); // 72-116px
+    const r = size / 2;
+
+    let cx = r + 8, cy = r + 8;
+
+    for (let attempt = 0; attempt < 500; attempt++) {
+      const tx = r + 10 + rng() * (CANVAS_W - 2 * r - 20);
+      const ty = r + 10 + rng() * (CANVAS_H - 2 * r - 20);
+
+      const overlaps = placed.some((p) => {
+        const dist = Math.sqrt((tx - p.cx) ** 2 + (ty - p.cy) ** 2);
+        return dist < r + p.size / 2 + GAP;
+      });
+
+      if (!overlaps) {
+        cx = tx;
+        cy = ty;
+        break;
+      }
+      // fallback on last attempt: just use the position
+      if (attempt === 499) { cx = tx; cy = ty; }
+    }
+
+    placed.push({
+      id: i,
+      text: painTexts[i],
+      ...bubbleMeta[i],
+      size,
+      left: Math.round(cx - r),
+      top: Math.round(cy - r),
+      cx,
+      cy,
+    });
+  }
+
+  return placed;
+}
+
+// Computed once at module load — stable positions on every render
+const LAYOUT = generateLayout();
+
 export const HeroCards = () => {
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [offsets, setOffsets] = useState<{ x: number; y: number }[]>(
+    () => LAYOUT.map(() => ({ x: 0, y: 0 }))
+  );
+
+  useEffect(() => {
+    if (!wrapRef.current) return;
+    const obs = new ResizeObserver(([entry]) => {
+      setScale(entry.contentRect.width / CANVAS_W);
+    });
+    obs.observe(wrapRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  // Drift: each bubble moves on its own staggered period
+  useEffect(() => {
+    const ids = LAYOUT.map((_, i) => {
+      const period = 2400 + i * 350 + Math.random() * 800;
+      return setInterval(() => {
+        setOffsets((prev) => {
+          const next = [...prev];
+          next[i] = {
+            x: (Math.random() - 0.5) * 14,
+            y: (Math.random() - 0.5) * 14,
+          };
+          return next;
+        });
+      }, period);
+    });
+    return () => ids.forEach(clearInterval);
+  }, []);
+
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-0 relative w-full max-w-[700px] lg:w-[700px] lg:h-[500px]">
-      {/* CAB approvals card - first on mobile stack */}
-      <Card className="order-1 w-full max-w-[300px] lg:max-w-none lg:absolute lg:left-0 lg:top-28 lg:w-[300px] z-10 drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-2">
-        <CardHeader className="p-0 pb-1.5">
-          <CardTitle className="text-sm font-bold leading-tight">
-            Waiting on CAB approvals - 39 mentions
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-0 space-y-1.5">
-          <div className="grid grid-cols-2 gap-1.5">
-            {cabQuotes.map(({ icon: Icon, text, color, fullWidth }, i) => (
-              <div
-                key={i}
-                className={`flex items-start gap-2 rounded-md bg-muted/60 dark:bg-muted/40 p-2 ${fullWidth ? "col-span-2" : ""}`}
-              >
-                <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white ${color}`}>
-                  <Icon className="w-3 h-3" />
+    <div className="w-full">
+      <div className="rounded-2xl border border-border bg-card shadow-xl overflow-hidden">
+        {/* Header */}
+        <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground leading-none mb-1">
+              Pain Signal Radar
+            </p>
+            <p className="text-sm font-bold text-foreground leading-tight">
+              Network Visibility Gaps
+            </p>
+          </div>
+          <div className="flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-950/30 px-2.5 py-1 rounded-full">
+            <span className="block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400">
+              Live
+            </span>
+          </div>
+        </div>
+
+        {/* Outer wrapper: measures real column width */}
+        <div
+          ref={wrapRef}
+          className="relative bg-background/30 overflow-hidden"
+          style={{ height: CANVAS_H * scale }}
+        >
+          {/* Fixed logical canvas scaled to fill */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: CANVAS_W,
+              height: CANVAS_H,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
+            {LAYOUT.map((b) => {
+              const isHovered = hoveredId === b.id;
+              const isUp = b.trend === "up";
+              // font sizes large enough to stay readable after scale
+              const textSize = Math.max(10, Math.round(b.size * 0.115));
+              const numSize  = Math.max(9,  Math.round(b.size * 0.095));
+
+              return (
+                // Drift wrapper — slow translate only
+                <div
+                  key={b.id}
+                  style={{
+                    position: "absolute",
+                    left: b.left,
+                    top: b.top,
+                    width: b.size,
+                    height: b.size,
+                    transform: `translate(${offsets[b.id].x}px, ${offsets[b.id].y}px)`,
+                    transition: "transform 2.6s ease-in-out",
+                    zIndex: isHovered ? 20 : 1,
+                  }}
+                >
+                  {/* Visual bubble — fast hover scale only */}
+                  <div
+                    onMouseEnter={() => setHoveredId(b.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    className={isUp ? "bubble-trend-up" : ""}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
+                      backgroundColor: b.bg,
+                      cursor: "pointer",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: `${Math.round(b.size * 0.12)}px`,
+                      boxShadow: "inset 0 0 0 1.5px rgba(0,0,0,0.10)",
+                      transition: "transform 0.22s ease",
+                      transform: isHovered ? "scale(1.18)" : "scale(1)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: textSize,
+                        color: b.fg,
+                        fontWeight: 600,
+                        textAlign: "center",
+                        lineHeight: 1.2,
+                        margin: 0,
+                        wordBreak: "break-word",
+                        width: "100%",
+                      }}
+                    >
+                      {b.text}
+                    </p>
+                    <div style={{ display: "flex", alignItems: "center", gap: 2, marginTop: 4 }}>
+                      <span style={{ fontSize: numSize, color: isUp ? "#10B981" : "#EF4444", fontWeight: 700, lineHeight: 1 }}>
+                        {isUp ? "▲" : "▼"}
+                      </span>
+                      <span style={{ fontSize: numSize, color: b.fg, opacity: 0.65, lineHeight: 1 }}>
+                        {b.mentions}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs leading-tight">{text}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </CardContent>
-        <CardFooter className="p-0 pt-2 mt-0 border-0">
-          <div className="w-full rounded-md border border-input bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 py-2 px-3 text-center text-xs font-medium cursor-pointer transition-colors">
-            Insert this pain into messaging →
-          </div>
-        </CardFooter>
-      </Card>
-
-      {/* Screenshot: pains - second on mobile stack */}
-      <Card className="order-3 w-full max-w-[420px] lg:max-w-none lg:absolute lg:right-[20px] lg:top-4 lg:w-[420px] z-10 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0">
-        <CardHeader className="p-0">
-          <img
-            src={screenshotPains}
-            alt="Screenshot of pains"
-            className="w-full h-auto object-cover"
-          />
-        </CardHeader>
-      </Card>
-
-      {/* Asset teaser - third on mobile stack; on desktop rendered first so other cards can overlap */}
-      <Card className="order-2 w-full max-w-[320px] lg:max-w-none lg:absolute lg:right-[90px] lg:bottom-4 lg:w-80 overflow-hidden drop-shadow-xl shadow-black/10 dark:shadow-white/10 p-0 z-0">
-        <CardHeader className="p-0">
-          <img
-            src={assetTeaser}
-            alt="Asset teaser"
-            className="w-full h-auto object-cover"
-          />
-        </CardHeader>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

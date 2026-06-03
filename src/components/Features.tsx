@@ -1,231 +1,256 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import person1 from "../assets/person1.png";
-import person2 from "../assets/person2.png";
-import person3 from "../assets/person3.png";
-import person4 from "../assets/person4.png";
-import person5 from "../assets/person5.png";
-import person6 from "../assets/person6.png";
+import { useState, useEffect } from "react";
 
-const GAP = 32;
-const PAUSE_MS = 2000;
-const SCROLL_DURATION_MS = 900;
-const CLICK_PAUSE_MS = 3000;
+const DURATION = 7000;
+const TOTAL = 4;
+const pad = (n: number) => (n < 10 ? "0" : "") + n;
 
-function animateScroll(
-  el: HTMLElement,
-  from: number,
-  to: number,
-  durationMs: number,
-  onComplete?: () => void
-) {
-  const start = performance.now();
-  const step = (now: number) => {
-    const t = Math.min((now - start) / durationMs, 1);
-    const eased = 0.5 * (1 - Math.cos(t * Math.PI));
-    el.scrollLeft = from + (to - from) * eased;
-    if (t < 1) {
-      requestAnimationFrame(step);
-    } else {
-      onComplete?.();
-    }
-  };
-  requestAnimationFrame(step);
-}
+const railLabels = [
+  { num: "01", label: "The Problem" },
+  { num: "02", label: "The Architecture" },
+  { num: "03", label: "Signal → Intelligence" },
+  { num: "04", label: "Intelligence → Message" },
+];
 
-interface FeatureProps {
-  title: string;
-  description: string;
-  image: string;
-}
-
-const features: FeatureProps[] = [
+const slides = [
   {
-    title: "How they actually say it",
-    description:
-      "See the words your buyers really use, and spot where your copy misses.",
-    image: person1,
+    kicker: "The Problem",
+    title: "You're Flying Blind",
+    body: "Quarterly reports and months-old surveys are stale before they even hit your desk. You're missing real-time competitor moves, community crises, and critical market shifts happening right now.",
+    punch: "Stop driving your GTM through the rearview mirror.",
+    visual: (
+      <svg viewBox="0 0 400 300" role="img" aria-label="A radar sweep circling blurred, drifting orbs it never locks onto">
+        <defs>
+          <filter id="s-blur1" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="5" />
+          </filter>
+        </defs>
+        <circle cx="200" cy="150" r="104" fill="none" stroke="#dbe4f5" strokeWidth="1" />
+        <circle cx="200" cy="150" r="66" fill="none" stroke="#dbe4f5" strokeWidth="1" />
+        <circle cx="200" cy="150" r="30" fill="none" stroke="#dbe4f5" strokeWidth="1" />
+        <line x1="64" y1="150" x2="336" y2="150" stroke="#e7eef8" strokeWidth="1" />
+        <line x1="200" y1="42" x2="200" y2="258" stroke="#e7eef8" strokeWidth="1" />
+        <g className="s-sweep">
+          <path d="M200 150 L200 46 A104 104 0 0 1 290 98 Z" fill="#1a6ff4" opacity="0.09" />
+          <line x1="200" y1="150" x2="200" y2="46" stroke="#1a6ff4" strokeWidth="1.5" opacity="0.45" />
+        </g>
+        <g filter="url(#s-blur1)">
+          <circle className="s-drift1" cx="132" cy="102" r="16" fill="#e89bd4" opacity="0.6" />
+          <circle className="s-drift2" cx="268" cy="118" r="13" fill="#8b7de8" opacity="0.58" />
+          <circle className="s-drift3" cx="248" cy="202" r="18" fill="#e8a03c" opacity="0.5" />
+          <circle className="s-drift1" cx="150" cy="208" r="11" fill="#5ba85b" opacity="0.5" />
+        </g>
+        <circle cx="200" cy="150" r="4" fill="#1a6ff4" />
+      </svg>
+    ),
   },
   {
-    title: "No theory. Just work.",
-    description:
-      "Every insight comes from real breakdowns in real workflows.",
-    image: person2,
+    kicker: "The Architecture",
+    title: "Two Engines. One Signal.",
+    body: "Your internal DNA - value props, positioning, and brand voice - fused with live market intelligence: practitioner discourse, competitor financials, and industry news.",
+    punch: "Your voice. The market's pulse. Perfected.",
+    visual: (
+      <svg viewBox="0 0 400 300" role="img" aria-label="A blue cluster and a pastel cluster flowing inward to fuse into one pulsing core">
+        <g stroke="#dbe4f5" strokeWidth="1">
+          <line x1="72" y1="92" x2="200" y2="150" />
+          <line x1="60" y1="150" x2="200" y2="150" />
+          <line x1="76" y1="210" x2="200" y2="150" />
+          <line x1="328" y1="94" x2="200" y2="150" />
+          <line x1="340" y1="150" x2="200" y2="150" />
+          <line x1="324" y1="208" x2="200" y2="150" />
+        </g>
+        <g>
+          <circle className="s-fl-t" cx="72" cy="92" r="11" fill="#1a6ff4" opacity="0.85" />
+          <circle className="s-fl-m" cx="60" cy="150" r="14" fill="#5ba85b" />
+          <circle className="s-fl-b" cx="76" cy="210" r="9" fill="#ad516b" opacity="0.72" />
+        </g>
+        <g>
+          <circle className="s-fr-t" cx="328" cy="94" r="10" fill="#e89bd4" opacity="0.85" />
+          <circle className="s-fr-m" cx="340" cy="150" r="13" fill="#8b7de8" />
+          <circle className="s-fr-b" cx="324" cy="208" r="11" fill="#e8a03c" opacity="0.8" />
+        </g>
+        <circle className="s-pulse" cx="200" cy="150" r="26" fill="none" stroke="#1a6ff4" strokeWidth="1.5" />
+        <g className="s-core">
+          <circle cx="200" cy="150" r="22" fill="#1a6ff4" opacity="0.12" />
+          <circle cx="200" cy="150" r="11" fill="#1a6ff4" />
+        </g>
+        <text x="68" y="252" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#8896aa">Your DNA</text>
+        <text x="332" y="252" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#8896aa">The Market</text>
+      </svg>
+    ),
   },
   {
-    title: "Always backed by reality",
-    description:
-      "Every insight links back to where it was actually said.",
-    image: person3,
-  },  {
-    title: "When messaging falls behind",
-    description:
-      "Your market moved on. Your messaging didn’t.",
-    image: person4,
+    kicker: "Phase 1 · Signal to Intelligence",
+    title: "From Noise to Quantified Intelligence",
+    body: "High-frequency pain clusters. Competitor vulnerabilities. Strategic triggers. Ready-to-use messaging frameworks. All sourced, mapped, and actionable.",
+    punch: "Not opinions. Observable evidence.",
+    visual: (
+      <svg viewBox="0 0 400 300" role="img" aria-label="Noisy dots feeding in on the left, resolving into ranked bars on the right">
+        <g>
+          <circle className="s-feed" style={{ animationDelay: "0s" }} cx="44" cy="92" r="5" fill="#e89bd4" />
+          <circle className="s-feed" style={{ animationDelay: "0.7s" }} cx="44" cy="150" r="4" fill="#8b7de8" />
+          <circle className="s-feed" style={{ animationDelay: "1.4s" }} cx="44" cy="208" r="5" fill="#e8a03c" />
+          <circle className="s-feed" style={{ animationDelay: "2.1s" }} cx="44" cy="120" r="4" fill="#5ba85b" />
+          <circle className="s-feed" style={{ animationDelay: "1s" }} cx="44" cy="178" r="4" fill="#1a6ff4" />
+        </g>
+        <line x1="186" y1="58" x2="186" y2="244" stroke="#e7eef8" strokeWidth="1" />
+        <rect className="s-bar" style={{ animationDelay: "0.10s" }} x="190" y="72" rx="7.5" height="15" width="158" fill="#1a6ff4" />
+        <rect className="s-bar" style={{ animationDelay: "0.25s" }} x="190" y="108" rx="7.5" height="15" width="126" fill="#8b7de8" />
+        <rect className="s-bar" style={{ animationDelay: "0.40s" }} x="190" y="144" rx="7.5" height="15" width="98" fill="#e89bd4" />
+        <rect className="s-bar" style={{ animationDelay: "0.55s" }} x="190" y="180" rx="7.5" height="15" width="72" fill="#e8a03c" />
+        <rect className="s-bar" style={{ animationDelay: "0.70s" }} x="190" y="216" rx="7.5" height="15" width="50" fill="#5ba85b" />
+      </svg>
+    ),
   },
   {
-    title: "Insights from the field",
-    description:
-      "Real problems, straight from real people. No surveys. No guessing.",
-    image: person5,
-  },
-  {
-    title: "From raw talk to real signal",
-    description:
-      "Messy threads in. Clear patterns out.",
-    image: person6,
+    kicker: "Phase 2 · Intelligence to Message",
+    title: "Resolve the Market First. Then Write.",
+    body: "Instant positioning, targeted campaign angles, and high-impact GTM assets. All grounded in what the market actually said - not what a generic AI imagined.",
+    punch: "Earn the right to write it.",
+    visual: (
+      <svg viewBox="0 0 400 300" role="img" aria-label="A pulse traveling a pipeline through Positioning, Messaging, Angles, and Assets">
+        <line x1="55" y1="150" x2="345" y2="150" stroke="#e7eef8" strokeWidth="2.5" />
+        <line className="s-dash" x1="55" y1="150" x2="345" y2="150" stroke="#1a6ff4" strokeWidth="2.5" strokeDasharray="5 11" opacity="0.5" />
+        <g>
+          <circle className="s-glow" style={{ animationDelay: "0s" }} cx="55" cy="150" r="18" fill="#1a6ff4" />
+          <circle cx="55" cy="150" r="9" fill="#1a6ff4" />
+          <text x="55" y="186" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#4a5568">Positioning</text>
+        </g>
+        <g>
+          <circle className="s-glow" style={{ animationDelay: "1s" }} cx="152" cy="150" r="18" fill="#8b7de8" />
+          <circle cx="152" cy="150" r="9" fill="#8b7de8" />
+          <text x="152" y="186" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#4a5568">Messaging</text>
+        </g>
+        <g>
+          <circle className="s-glow" style={{ animationDelay: "2s" }} cx="248" cy="150" r="18" fill="#e89bd4" />
+          <circle cx="248" cy="150" r="9" fill="#e89bd4" />
+          <text x="248" y="186" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#4a5568">Angles</text>
+        </g>
+        <g>
+          <circle className="s-glow" style={{ animationDelay: "3s" }} cx="345" cy="150" r="18" fill="#e8a03c" />
+          <circle cx="345" cy="150" r="9" fill="#e8a03c" />
+          <text x="345" y="186" textAnchor="middle" fontFamily="Inter, sans-serif" fontSize="11" fontWeight="500" fill="#4a5568">Assets</text>
+        </g>
+        <circle className="s-travel" cx="55" cy="150" r="6" fill="#1a6ff4" />
+      </svg>
+    ),
   },
 ];
 
-const TAP_MOVE_THRESHOLD_PX = 10;
-const TAP_MAX_DURATION_MS = 400;
-
 export const Features = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pointerStartRef = useRef<{ x: number; t: number } | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(400);
-  const [isAutoAdvancePaused, setIsAutoAdvancePaused] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [progressKey, setProgressKey] = useState(0);
+  const [resetKey, setResetKey] = useState(0);
+  const reducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const handleCardClick = () => {
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    setIsAutoAdvancePaused(true);
-    pauseTimeoutRef.current = setTimeout(() => {
-      pauseTimeoutRef.current = null;
-      setIsAutoAdvancePaused(false);
-    }, CLICK_PAUSE_MS);
+  const go = (n: number) => {
+    setCurrent(((n % TOTAL) + TOTAL) % TOTAL);
+    setProgressKey((k) => k + 1);
+    setResetKey((k) => k + 1);
   };
 
-  const handleCardPointerDown = (e: React.PointerEvent) => {
-    pointerStartRef.current = { x: e.clientX, t: Date.now() };
-  };
-
-  const handleCardPointerUp = (e: React.PointerEvent) => {
-    const start = pointerStartRef.current;
-    pointerStartRef.current = null;
-    if (!start) return;
-    const dx = Math.abs(e.clientX - start.x);
-    const dt = Date.now() - start.t;
-    if (dx <= TAP_MOVE_THRESHOLD_PX && dt <= TAP_MAX_DURATION_MS) {
-      handleCardClick();
-    }
+  const togglePlay = () => {
+    setPlaying((p) => !p);
+    setProgressKey((k) => k + 1);
   };
 
   useEffect(() => {
-    return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const updateWidth = () => {
-      const w = el.clientWidth;
-      setCardWidth((w - GAP) / 2);
-    };
-    updateWidth();
-    const ro = new ResizeObserver(updateWidth);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  const stepCount = features.length + 1;
-  const isAtDuplicateStart = currentIndex === features.length;
-
-  useEffect(() => {
-    if (isAutoAdvancePaused) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % stepCount);
-    }, PAUSE_MS);
-    return () => clearInterval(interval);
-  }, [stepCount, isAutoAdvancePaused]);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el || cardWidth < 1 || isAutoAdvancePaused) return;
-
-    const targetScroll = currentIndex * (cardWidth + GAP);
-
-    const rafId = requestAnimationFrame(() => {
-      const from = el.scrollLeft;
-      if (isAtDuplicateStart) {
-        animateScroll(el, from, targetScroll, SCROLL_DURATION_MS, () => {
-          el.scrollLeft = 0;
-          setCurrentIndex(0);
-        });
-      } else {
-        animateScroll(el, from, targetScroll, SCROLL_DURATION_MS);
-      }
-    });
-    return () => cancelAnimationFrame(rafId);
-  }, [currentIndex, cardWidth, isAtDuplicateStart, isAutoAdvancePaused]);
+    if (!playing || reducedMotion) return;
+    const id = setInterval(() => {
+      setCurrent((p) => (p + 1) % TOTAL);
+      setProgressKey((k) => k + 1);
+    }, DURATION);
+    return () => clearInterval(id);
+  }, [playing, reducedMotion, resetKey]);
 
   return (
-    <section
-      id="features"
-      className="container py-24 sm:py-32 space-y-8 bg-[hsl(var(--section-bg-1))]"
-    >
-      <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        {" "}
-        <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-        Hear what your market is really saying
-        </span>
-      </h2>
-
-      <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto mb-8">
-      Not surveys. Not assumptions. Real struggles, in their own words.
-      </p>
-
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-auto overflow-y-hidden py-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide touch-pan-x touch-pan-y"
-        style={{ gap: GAP, scrollBehavior: "auto", scrollSnapType: "none" }}
-        onTouchStart={() => setIsAutoAdvancePaused(true)}
-        onPointerDown={() => setIsAutoAdvancePaused(true)}
-        onWheel={() => setIsAutoAdvancePaused(true)}
-      >
-        {[...features, ...features].map(({ title, description, image }: FeatureProps, index) => (
-          <div
-            key={`${title}-${index}`}
-            className="flex-shrink-0 cursor-pointer touch-pan-x touch-pan-y"
-            style={{ width: cardWidth, minWidth: cardWidth }}
-            onPointerDown={handleCardPointerDown}
-            onPointerUp={handleCardPointerUp}
-            onPointerCancel={() => { pointerStartRef.current = null; }}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleCardClick();
-              }
-            }}
-          >
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>{title}</CardTitle>
-              </CardHeader>
-
-              <CardContent>{description}</CardContent>
-
-              <CardFooter>
-                <img
-                  src={image}
-                  alt="About feature"
-                  className="w-[200px] lg:w-[300px] mx-auto"
-                />
-              </CardFooter>
-            </Card>
+    <section id="features" className="story-section">
+      <div className="story">
+        <div className="story-head">
+          <p className="story-section-label">The Ansora model</p>
+          <h2>From blind spots to a message the market actually recognizes.</h2>
+        </div>
+        <div className="story-stage">
+          <div className="story-rail">
+            {railLabels.map(({ num, label }, idx) => (
+              <button
+                key={idx}
+                className={`rail-dot${current === idx ? " active" : ""}`}
+                onClick={() => go(idx)}
+              >
+                <b>{num}</b> {label}
+              </button>
+            ))}
           </div>
-        ))}
+
+          <div className="story-cards">
+            {slides.map((slide, idx) => (
+              <article
+                key={idx}
+                className={`story-card${current === idx ? " active" : ""}`}
+              >
+                <div className="card-text">
+                  <span className="card-kicker">{slide.kicker}</span>
+                  <h3>{slide.title}</h3>
+                  <p className="card-body">{slide.body}</p>
+                  <p className="card-punch">{slide.punch}</p>
+                </div>
+                <div className="card-visual">{slide.visual}</div>
+              </article>
+            ))}
+          </div>
+
+          <div className="story-nav">
+            <button
+              className="nav-btn"
+              onClick={() => go(current - 1)}
+              aria-label="Previous card"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              className="nav-btn"
+              onClick={togglePlay}
+              aria-label={playing ? "Pause" : "Play"}
+            >
+              {playing ? (
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="5" width="4" height="14" rx="1" />
+                  <rect x="14" y="5" width="4" height="14" rx="1" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 5l12 7-12 7z" />
+                </svg>
+              )}
+            </button>
+            <button
+              className="nav-btn"
+              onClick={() => go(current + 1)}
+              aria-label="Next card"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <div className="story-progress">
+              {playing && !reducedMotion && (
+                <div
+                  key={progressKey}
+                  className="story-progress-bar"
+                  style={{ animation: `storyProg ${DURATION}ms linear forwards` }}
+                />
+              )}
+            </div>
+            <span className="story-count">
+              {pad(current + 1)} / {pad(TOTAL)}
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );
