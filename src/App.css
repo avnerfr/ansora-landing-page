@@ -168,7 +168,11 @@
 
 /* =========== Story / Features section =========== */
 .story-section {
-  background: hsl(var(--section-bg-2));
+  background: #0d0f15;
+  --foreground: 0 0% 94%;
+  --card: 220 14% 9%;
+  --border: 220 14% 17%;
+  --muted-foreground: 215 15% 58%;
 }
 
 .story {
@@ -328,11 +332,7 @@
   position: relative;
   border-left: 1px solid hsl(var(--border));
   overflow: hidden;
-  background: linear-gradient(180deg, #fbfcff, #f5f8fe);
-}
-
-.dark .card-visual {
-  background: linear-gradient(180deg, #1a1f2e, #1e2435);
+  background: linear-gradient(180deg, #141a2e, #161c30);
 }
 
 .card-visual svg {
