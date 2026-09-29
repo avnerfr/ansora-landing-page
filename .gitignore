@@ -7,11 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# environment variables (do not commit real secrets)
-.env
-.env.local
-.env.*.local
-
 node_modules
 dist
 dist-ssr
@@ -27,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# The repo root's .gitignore ignores *.png everywhere, which would silently
+# leave this page's own images out of a clone — the hero screenshots, the
+# favicon and the logo are source here, not build output. A negation in the
+# deeper .gitignore wins over the shallower one.
+!public/*.png

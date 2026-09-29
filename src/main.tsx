@@ -1,16 +1,15 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App.tsx";
-import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { Root } from "./Root";
+import { langFromPath } from "@/lib/i18n";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
-  </React.StrictMode>
-);
+const container = document.getElementById("root")!;
+const app = <Root lang={langFromPath(window.location.pathname)} />;
+
+// A production build ships the page prerendered, so attach to that markup;
+// the dev server serves an empty #root.
+if (container.hasChildNodes()) {
+  ReactDOM.hydrateRoot(container, app);
+} else {
+  ReactDOM.createRoot(container).render(app);
+}

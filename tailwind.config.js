@@ -2,9 +2,7 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "./index.html",
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
@@ -12,12 +10,17 @@ module.exports = {
       center: true,
       padding: "1.5rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1280px",
       },
     },
     extend: {
+      // Resolved from the CSS custom properties in src/index.css so the Hebrew
+      // font swap ([dir="rtl"] promotes Heebo ahead of Inter) applies to every
+      // font-sans utility on the page without a second Tailwind family.
       fontFamily: {
-        navbar: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)"],
+        serif: ["var(--font-serif)"],
+        mono: ["var(--font-mono)"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -53,6 +56,24 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // frontend/tailwind.config.ts parity — brand tokens as rgb triplets.
+        brand: {
+          DEFAULT: "rgb(var(--brand) / <alpha-value>)",
+          soft: "rgb(var(--brand2) / <alpha-value>)",
+          dark: "rgb(var(--brand-dark) / <alpha-value>)",
+        },
+        whatsapp: "rgb(var(--whatsapp) / <alpha-value>)",
+      },
+      // The page's one easing curve, named so it can be used as `ease-swift`.
+      // As a bracketed arbitrary value the commas inside cubic-bezier() made
+      // Tailwind warn that the class was ambiguous on every build.
+      transitionTimingFunction: {
+        swift: "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+      // Named for the same reason: bracketed `duration-[400ms]` is ambiguous
+      // between transition-duration and animation-duration.
+      transitionDuration: {
+        400: "400ms",
       },
       borderRadius: {
         lg: "var(--radius)",
