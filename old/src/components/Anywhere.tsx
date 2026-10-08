@@ -82,7 +82,7 @@ export const Anywhere = () => {
           <Reveal variant="end" delay={100}>
             <figure className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[0_30px_70px_-35px_rgba(2,6,23,0.55)]">
               <img
-                src="/desktop.png"
+                src={`${import.meta.env.BASE_URL}desktop.png`}
                 alt={t("anywhere.caption_desktop")}
                 width={1616}
                 height={801}
@@ -104,7 +104,7 @@ export const Anywhere = () => {
           >
             <figure className="animate-float overflow-hidden rounded-[1.6rem] border-[6px] border-slate-900 bg-slate-900 shadow-[0_26px_56px_-24px_rgba(2,6,23,0.7)] dark:border-slate-700">
               <img
-                src="/mobile.png"
+                src={`${import.meta.env.BASE_URL}mobile.png`}
                 alt={t("anywhere.caption_mobile")}
                 width={492}
                 height={737}

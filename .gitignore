@@ -28,3 +28,11 @@ dist-ssr
 # favicon and the logo are source here, not build output. A negation in the
 # deeper .gitignore wins over the shallower one.
 !public/*.png
+
+# Next.js
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+old/dist
+old/dist-ssr

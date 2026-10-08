@@ -73,7 +73,7 @@ export const HeroShowcase = () => {
 
           <div className="relative">
             <img
-              src="/desktop.png"
+              src={`${import.meta.env.BASE_URL}desktop.png`}
               alt={t("anywhere.caption_desktop")}
               width={1616}
               height={801}
@@ -116,7 +116,7 @@ export const HeroShowcase = () => {
         <div className="origin-bottom sm:scale-[0.66] lg:scale-[0.7] xl:scale-[0.74]">
           <div className="animate-float">
             <img
-              src="/whatsapp.gif"
+              src={`${import.meta.env.BASE_URL}whatsapp.gif`}
               alt={t("hero.whatsapp_alt")}
               width={945}
               height={2048}

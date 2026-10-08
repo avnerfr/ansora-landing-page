@@ -5,7 +5,7 @@
  * { en, he } pair per key, a useI18n() hook returning { lang, dir, t }) so
  * copy can move between the two without reformatting.
  *
- * The language is the URL: / is Hebrew, /en/ is English. Each is prerendered
+ * The language is the URL: /old/ is Hebrew, /old/en/ is English (this site is served under /old). Each is prerendered
  * to its own static HTML file at build time (scripts/prerender.mjs), so search
  * engines index both versions and neither depends on a crawler's locale. The
  * "send this visitor to their language" decision is an inline script in
@@ -20,10 +20,10 @@ export type Lang = "en" | "he";
 const STORAGE_KEY = "ansora_landing_lang";
 
 export const SITE_URL = "https://ansora.io";
-export const LANG_PATH: Record<Lang, string> = { he: "/", en: "/en/" };
+export const LANG_PATH: Record<Lang, string> = { he: "/old/", en: "/old/en/" };
 
 export function langFromPath(pathname: string): Lang {
-  return /^\/en(\/|$)/.test(pathname) ? "en" : "he";
+  return /^\/old\/en(\/|$)/.test(pathname) ? "en" : "he";
 }
 
 /** An explicit pick from the language switcher, honoured on later visits. */

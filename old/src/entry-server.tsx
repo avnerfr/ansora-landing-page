@@ -20,26 +20,26 @@ export function head(lang: Lang): string {
   const t = (key: Parameters<typeof translate>[1]) => esc(translate(lang, key));
   const url = SITE_URL + LANG_PATH[lang];
   const other: Lang = lang === "he" ? "en" : "he";
-  const image = `${SITE_URL}/desktop.png`;
+  const image = `${SITE_URL}/old/desktop.png`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": `${SITE_URL}/#organization`,
+        "@id": `${SITE_URL}/old/#organization`,
         name: "Ansora",
-        url: `${SITE_URL}/`,
-        logo: `${SITE_URL}/logo_no_background.png`,
+        url: `${SITE_URL}/old/`,
+        logo: `${SITE_URL}/old/logo_no_background.png`,
         description: translate(lang, "meta.org_description"),
       },
       {
         "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
+        "@id": `${SITE_URL}/old/#website`,
         name: "Ansora",
-        url: `${SITE_URL}/`,
+        url: `${SITE_URL}/old/`,
         inLanguage: ["he", "en"],
-        publisher: { "@id": `${SITE_URL}/#organization` },
+        publisher: { "@id": `${SITE_URL}/old/#organization` },
       },
       {
         "@type": "FAQPage",
