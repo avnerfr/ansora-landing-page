@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import { CONTENT, REGISTER_URL, type Lang } from "../_content/content";
 import { Faq } from "./Faq";
+import { OneVideoAtATime } from "./OneVideoAtATime";
 
 const A = "/landing-assets";
+const YT = "https://www.youtube-nocookie.com/embed";
 
 const Corners = () => (
   <>
@@ -65,11 +67,8 @@ const Cta = ({ children, block = false }: { children: ReactNode; block?: boolean
 
 const Logo = () => (
   <a href="#top" dir="ltr" className="lp-logo">
-    <svg viewBox="0 0 48 48" width="28" height="28" fill="none" aria-hidden="true">
-      <circle cx="12" cy="24" r="6" fill="currentColor" />
-      <path d="M24 12a17 17 0 0 1 0 24" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" opacity="0.75" />
-      <path d="M34 6a25.5 25.5 0 0 1 0 36" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" opacity="0.4" />
-    </svg>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={`${A}/logo.png`} alt="" className="lp-logo-mark" />
     <span>Ansora</span>
   </a>
 );
@@ -84,9 +83,11 @@ export function Landing({ lang }: { lang: Lang }) {
         {c.nav.skip}
       </a>
 
+      <OneVideoAtATime />
       <nav className="nav lp-nav">
         <Logo />
         <div className="lp-nav-links">
+          <a href="#what">{c.nav.what}</a>
           <a href="#meet">{c.nav.meet}</a>
           <a href="#why">{c.nav.why}</a>
           <a href="#price">{c.nav.price}</a>
@@ -113,17 +114,35 @@ export function Landing({ lang }: { lang: Lang }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`${A}/hero.jpg`} alt={c.hero.heroAlt} className="lp-hero-img" />
             </div>
-            <p className="lp-lead">{c.hero.lead}</p>
-            <div className="lp-hero-actions">
-              <Cta>{c.ctaEnter}</Cta>
-              <a href="#price" className="lp-price-link">
-                {c.hero.priceLine}
-              </a>
+            <div className="lp-hero-body">
+              <div className="lp-hero-text">
+                <p className="lp-lead">{c.hero.lead}</p>
+                <div className="lp-hero-actions">
+                  <Cta>{c.ctaEnter}</Cta>
+                  <a href="#price" className="lp-price-link">
+                    {c.hero.priceLine}
+                  </a>
+                </div>
+              </div>
+              <figure className="lp-video">
+                <div className="blueprint lp-video-frame">
+                  <div className="lp-video-stage">
+                    <iframe
+                      src={`${YT}/JUSIP_0USQ0?enablejsapi=1&rel=0`}
+                      title={c.hero.videoTitle}
+                      allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+                  <Corners />
+                </div>
+              </figure>
             </div>
           </section>
 
           {/* What she does */}
-          <section className="lp-section">
+          <section id="what" className="lp-section">
             <Eyebrow>{c.what.eyebrow}</Eyebrow>
             <h2 className="lp-h2 lp-h2-wide">{c.what.title}</h2>
             <div className="lp-grid lp-grid-4">
@@ -183,11 +202,15 @@ export function Landing({ lang }: { lang: Lang }) {
               <h2 className="lp-h2">{c.meet.title}</h2>
             </div>
             <figure className="blueprint lp-figure">
-              <picture>
-                <source media="(max-width: 640px)" srcSet={`${A}/mobile-demo.gif`} />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${A}/demo.gif`} alt={c.meet.demoAlt} />
-              </picture>
+              <div className="lp-wide">
+                <iframe
+                  src={`${YT}/c3KDRDtYWHk?enablejsapi=1&rel=0`}
+                  title={c.meet.demoAlt}
+                  allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
               <Corners />
             </figure>
             <div>
@@ -312,7 +335,7 @@ export function Landing({ lang }: { lang: Lang }) {
           <section className="lp-section">
             <div className="blueprint lp-final">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${A}/icon.png`} alt="" className="lp-final-icon" />
+              <img src={`${A}/logo.png`} alt="" className="lp-final-icon" />
               <h2 className="lp-h2 lp-final-title">{c.final.title}</h2>
               <Cta>{c.ctaEnter}</Cta>
               <span className="lp-final-price">{c.final.priceLine}</span>
@@ -326,7 +349,7 @@ export function Landing({ lang }: { lang: Lang }) {
         <footer className="lp-footer">
           <span dir="ltr" className="lp-footer-brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${A}/icon.png`} alt="" />
+            <img src={`${A}/logo.png`} alt="" />
             <span>Ansora</span>
           </span>
           <span>{c.footer}</span>

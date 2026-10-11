@@ -5,10 +5,10 @@ export const SITE_URL = "https://ansora.io";
 
 export type Content = {
   meta: { title: string; description: string };
-  nav: { meet: string; why: string; price: string; other: string; otherHref: string; skip: string };
+  nav: { what: string; meet: string; why: string; price: string; other: string; otherHref: string; skip: string };
   ctaEnter: string;
   ctaWork: string;
-  hero: { small: string; big: string; lead: string; priceLine: string; heroAlt: string };
+  hero: { small: string; big: string; lead: string; priceLine: string; heroAlt: string; videoTitle: string };
   what: {
     eyebrow: string;
     title: string;
@@ -90,9 +90,10 @@ const he: Content = {
       "אנסורה היא צוות שעובד עבור העסק שלכם: יועצת עסקית, מנהלת שיווק, כותבת תוכן ומעצבת, מתוך אותו ידע ואותה אסטרטגיה. מחיר השקה: 247 שקלים בחודש.",
   },
   nav: {
+    what: "מה היא עושה",
     meet: "הכירו אותה",
     why: "למה בכלל",
-    price: "מחיר",
+    price: "הכירו את הצוות",
     other: "English",
     otherHref: "/en/",
     skip: "דלגו לתוכן",
@@ -105,6 +106,7 @@ const he: Content = {
     lead: "בלי אופק עסקי ברור ובלי כניסה קבועה של לקוחות, זה לא נשאר רק בעסק. אנחנו כבעלים לא ישנים בלילה, מתקשים לחשוב קדימה, העסק לא צומח והמוטיבציה נשחקת.",
     priceLine: "מחיר ההשקה: 247 שקלים בחודש",
     heroAlt: "",
+    videoTitle: "הסבר על אנסורה",
   },
   what: {
     eyebrow: "01 · מה היא עושה",
@@ -147,7 +149,7 @@ const he: Content = {
     ],
     closing: "ולכן קמפיינים עובדים פחות טוב בשנים האחרונות. זה נקרא \"מסע לקוח\", אבל אנחנו במסע יחד איתו.",
   },
-  intuition: "ואנסורה לא עובדת על \"נראה לי\"",
+  intuition: "אנסורה לא עובדת על \"נראה לי\"",
   science: {
     eyebrow: "05 · הידע שמאחורי",
     title: "שיווק הוא מקצוע שמבוסס על מדעי ההתנהגות",
@@ -221,7 +223,7 @@ const en: Content = {
     description:
       "Ansora is a team that works for your business: a business consultant, a marketing manager, a content writer and a designer, all from the same knowledge and the same strategy. Launch price: 247 NIS a month.",
   },
-  nav: { meet: "Meet her", why: "Why", price: "Price", other: "עברית", otherHref: "/", skip: "Skip to content" },
+  nav: { what: "What she does", meet: "Meet her", why: "Why", price: "Price", other: "עברית", otherHref: "/", skip: "Skip to content" },
   ctaEnter: "I want to get into Ansora",
   ctaWork: "I want Ansora to work for me",
   hero: {
@@ -230,6 +232,7 @@ const en: Content = {
     lead: "Without a clear business horizon and a steady flow of customers, it doesn't stay only in the business. As owners we lose sleep, struggle to think ahead, the business doesn't grow and motivation wears down.",
     priceLine: "Launch price: 247 NIS a month",
     heroAlt: "",
+    videoTitle: "About Ansora",
   },
   what: {
     eyebrow: "01 · What she does",
