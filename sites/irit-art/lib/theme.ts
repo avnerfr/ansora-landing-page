@@ -5,13 +5,13 @@
  * Palette is taken from the artist's logo (brown + antique gold) on plain beige.
  */
 export const theme = {
-  bg: "#f1e7d6", // plain beige page background
-  surface: "#fbf6ec", // cards / inputs
+  bg: "#faf3e0", // plain beige page background
+  surface: "#fffaf0", // cards / inputs
   text: "#3a2e22", // dark brown body text
   muted: "#7b6a57",
   accent: "#6b5238", // buttons, strong brown from the logo type
   gold: "#a9854e", // ornaments, highlights (from the logo's gold)
-  line: "#d9c9ae", // borders
+  line: "#e3d5b8", // borders
   overlay: "#2a2118", // lightbox backdrop
 } as const;
 

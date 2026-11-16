@@ -34,7 +34,7 @@ export default async function Page() {
       <main id="top">
         <section className="hero">
           <div className="hero-logo">
-            <img src={asset("/logo.png")} alt={`${profile.name} — ${profile.tagline}`} width={955} height={747} />
+            <img src={asset("/logo.png")} alt={`${profile.name} — ${profile.tagline}`} width={1536} height={1024} />
           </div>
           {profile.heroLine && <h1 className="hero-line">{profile.heroLine}</h1>}
           {profile.heroSub && <p className="hero-sub">{profile.heroSub}</p>}
