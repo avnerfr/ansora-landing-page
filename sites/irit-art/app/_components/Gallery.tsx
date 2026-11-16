@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { asset } from "@/lib/base";
 import type { Artwork } from "@/lib/content";
 
@@ -63,7 +64,7 @@ export function Gallery({ items }: { items: Artwork[] }) {
         ))}
       </div>
 
-      {cur && (
+      {cur && createPortal(
         <div
           className="lightbox"
           role="dialog"
@@ -89,7 +90,8 @@ export function Gallery({ items }: { items: Artwork[] }) {
             <img key={cur.id} src={asset(cur.src)} alt={cur.title} />
             {cur.title && <figcaption>{cur.title}</figcaption>}
           </figure>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
