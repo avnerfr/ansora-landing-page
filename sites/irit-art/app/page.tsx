@@ -42,7 +42,10 @@ const steps = [
 
 export default async function Page() {
   const { profile, gallery } = await getContent();
-  const wa = profile.whatsapp ? `https://wa.me/${profile.whatsapp}` : "";
+  // WhatsApp number: the saved one, else derived from the phone (Israeli 05x-xxxxxxx → 9725xxxxxxxx).
+  const phoneDigits = profile.phone.replace(/\D/g, "");
+  const waNumber = profile.whatsapp || (/^0[2-9]\d{7,8}$/.test(phoneDigits) ? `972${phoneDigits.slice(1)}` : "");
+  const wa = waNumber ? `https://wa.me/${waNumber}` : "";
   const talk = wa || (profile.phone ? `tel:${profile.phone}` : "#contact");
   const waProps = wa ? { target: "_blank", rel: "noopener noreferrer" } : {};
 

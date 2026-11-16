@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Heebo, Frank_Ruhl_Libre } from "next/font/google";
+import { asset } from "@/lib/base";
 import { theme, themeVars } from "@/lib/theme";
 import "./globals.css";
 
@@ -10,7 +11,7 @@ const frank = Frank_Ruhl_Libre({ subsets: ["hebrew", "latin"], weight: ["300", "
 export const metadata: Metadata = {
   title: "אירית אברהמוב | ציורי כוונה אישית",
   description: "ציורי כוונה אישית — ציור שנבחר מתוך שיחה, בדיוק בשבילך. אירית אברהמוב.",
-  icons: { icon: "/favicon.png", apple: "/favicon.png" },
+  icons: { icon: asset("/favicon.png"), apple: asset("/favicon.png") },
 };
 
 export const viewport: Viewport = { themeColor: theme.bg };
