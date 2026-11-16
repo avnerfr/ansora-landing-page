@@ -2,6 +2,15 @@
 import { useRef, useState } from "react";
 import { asset, BASE } from "@/lib/base";
 import type { Artwork, Profile, SiteContent } from "@/lib/content";
+import { COPY_FIELDS, defaultCopy } from "@/lib/copy";
+
+// Group the text fields in page order, keeping each field's definition order.
+const COPY_GROUPS = COPY_FIELDS.reduce<{ name: string; fields: typeof COPY_FIELDS }[]>((acc, f) => {
+  const g = acc.find((x) => x.name === f.group);
+  if (g) g.fields.push(f);
+  else acc.push({ name: f.group, fields: [f] });
+  return acc;
+}, []);
 
 const MAX_SIDE = 2000;
 
@@ -44,6 +53,7 @@ const FIELDS: { key: keyof Profile; label: string; hint?: string; ltr?: boolean 
 export function ManageClient({ initial }: { initial: SiteContent }) {
   const [profile, setProfile] = useState(initial.profile);
   const [gallery, setGallery] = useState(initial.gallery);
+  const [copy, setCopy] = useState(initial.copy);
   const [busy, setBusy] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [status, setStatus] = useState<{ kind: "" | "ok" | "err"; text: string }>({ kind: "", text: "" });
@@ -129,7 +139,7 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
       const res = await fetch(`${BASE}/api/manage/content/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile, gallery }),
+        body: JSON.stringify({ profile, gallery, copy }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setDirty(false);
@@ -174,6 +184,37 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
             <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => replacePhoto(e.target.files)} />
           </div>
         </div>
+      </section>
+
+      <section className="mg-card glass">
+        <h2>טקסטים באתר</h2>
+        <p className="muted" style={{ marginTop: -8 }}>
+          כל הטקסטים בדף, לפי סדר הופעתם. שדה ריק מסתיר את האלמנט באתר. ״איפוס״ מחזיר את הנוסח המקורי.
+        </p>
+        {COPY_GROUPS.map((g) => (
+          <details key={g.name} className="mg-group">
+            <summary>{g.name}</summary>
+            <div className="mg-grid">
+              {g.fields.map((f) => (
+                <label key={f.key} className="wide">
+                  <span className="mg-label">
+                    {f.label}
+                    {copy[f.key] !== defaultCopy[f.key] && (
+                      <button type="button" className="mg-reset" onClick={() => (setCopy({ ...copy, [f.key]: defaultCopy[f.key] }), touch())}>
+                        איפוס
+                      </button>
+                    )}
+                  </span>
+                  {f.rows ? (
+                    <textarea style={{ minHeight: f.rows * 26 + 16 }} value={copy[f.key]} onChange={(e) => (setCopy({ ...copy, [f.key]: e.target.value }), touch())} />
+                  ) : (
+                    <input value={copy[f.key]} onChange={(e) => (setCopy({ ...copy, [f.key]: e.target.value }), touch())} />
+                  )}
+                </label>
+              ))}
+            </div>
+          </details>
+        ))}
       </section>
 
       <section className="mg-card glass">

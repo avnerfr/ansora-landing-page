@@ -1,4 +1,5 @@
 import { asset } from "@/lib/base";
+import { lines } from "@/lib/copy";
 import { getContent } from "@/lib/store";
 import { Dreamscape } from "./_components/Dreamscape";
 import { Gallery } from "./_components/Gallery";
@@ -6,48 +7,33 @@ import { Gallery } from "./_components/Gallery";
 // Content is edited at runtime from /manage, so render per request.
 export const dynamic = "force-dynamic";
 
-const painPoints = [
-  "שנים של ציפייה ארוכה לפרי בטן.",
-  "דאגה עמוקה לבן זוג שלא בקו הבריאות.",
-  "תחושה שהשפע הכלכלי תמיד בורח ברגע האחרון.",
-  "או בדידות שקטה ששום עצה טובה לא מצליחה לרפא.",
-];
-
-const steps = [
-  {
-    n: "1",
-    title: "שיחה אישית מהלב",
-    body: [
-      ["מה קורה בה: ", "לפני שאני ממליצה על ציור, אני שואלת אותך מה הכאב שלך, מה חסר לך בחיים, ומה את רוצה לזמן לעצמך. מתוך ההיכרות הזו בינינו, אני בוחרת יחד איתך את הציור שמתאים בול לצורך שלך."],
-    ],
-    feel: "לראשונה הרגשתי שמישהי באמת שמעה אותי לפני שהמליצה לי על משהו.",
-  },
-  {
-    n: "2",
-    title: "הגיון שעושה סדר בפנים",
-    body: [
-      ["הבסיס: ", "פיתחתי שיטה שמחברת בין פשר חלומות יהודי לבין פסיכולוגיה של התת-מודע. העולם שלנו מגיב לסמלים ויזואליים. הציור נבחר מתוך הגיון עמוק שאת יכולה להרגיש ולהסביר לעצמך – לא סתם כי הוא יפה בסלון."],
-    ],
-    feel: "עכשיו אני מבינה למה הציור הזה ולא אחר – יש לזה משמעות שאני מרגישה בגוף.",
-  },
-  {
-    n: "3",
-    title: "לעשות צעד ממשי",
-    body: [
-      ["התוצאה: ", "הציור הזה הוא לא דקורציה. הוא כלי שעוזר לך לעורר תהליך פנימי, ולכוון אנרגיה אל מה שאת באמת רוצה להגשים – זוגיות, בריאות, שפע או ילדים."],
-    ],
-    feel: "סוף סוף עשיתי משהו אמיתי בשבילי, ולא רק חיכיתי שהמצב ישתנה לבד.",
-  },
-];
+/** "Title: rest" → bold title + rest (split on the first colon). */
+function Item({ text }: { text: string }) {
+  const i = text.indexOf(":");
+  return i > 0 && i < 40 ? (
+    <li><strong>{text.slice(0, i + 1)}</strong>{text.slice(i + 1)}</li>
+  ) : (
+    <li>{text}</li>
+  );
+}
 
 export default async function Page() {
-  const { profile, gallery } = await getContent();
+  const { profile, gallery, copy: c } = await getContent();
+
   // WhatsApp number: the saved one, else derived from the phone (Israeli 05x-xxxxxxx → 9725xxxxxxxx).
   const phoneDigits = profile.phone.replace(/\D/g, "");
   const waNumber = profile.whatsapp || (/^0[2-9]\d{7,8}$/.test(phoneDigits) ? `972${phoneDigits.slice(1)}` : "");
   const wa = waNumber ? `https://wa.me/${waNumber}` : "";
   const talk = wa || (profile.phone ? `tel:${profile.phone}` : "#contact");
   const waProps = wa ? { target: "_blank", rel: "noopener noreferrer" } : {};
+
+  const steps = [1, 2, 3].map((n) => ({
+    n,
+    title: c[`step${n}Title`],
+    lead: c[`step${n}Lead`],
+    body: c[`step${n}Body`],
+    feel: c[`step${n}Feel`],
+  }));
 
   return (
     <>
@@ -56,9 +42,9 @@ export default async function Page() {
       <header className="nav">
         <a href="#top" className="nav-name">{profile.name}</a>
         <nav>
-          <a href="#gallery">גלריה</a>
-          <a href="#method">הדרך שלי</a>
-          <a href="#contact">יצירת קשר</a>
+          <a href="#gallery">{c.navGallery}</a>
+          <a href="#method">{c.navMethod}</a>
+          <a href="#contact">{c.navContact}</a>
         </nav>
       </header>
 
@@ -71,39 +57,35 @@ export default async function Page() {
           {profile.heroLine && <h1 className="hero-line">{profile.heroLine}</h1>}
           {profile.heroSub && <p className="hero-sub">{profile.heroSub}</p>}
           <div className="cta-row">
-            <a className="hero-cta" href={talk} {...waProps}>דברי איתי בוואטסאפ</a>
-            <a className="hero-cta ghost" href="#gallery">לצפייה בציורים</a>
+            {c.ctaPrimary && <a className="hero-cta" href={talk} {...waProps}>{c.ctaPrimary}</a>}
+            {c.ctaGhost && <a className="hero-cta ghost" href="#gallery">{c.ctaGhost}</a>}
           </div>
           <a className="scroll-cue" href="#gallery" aria-label="גלול למטה"><span /></a>
         </section>
 
         {/* 2. Gallery */}
         <section id="gallery" className="section">
-          <h2 className="section-title">הגלריה</h2>
-          <p className="section-sub">ציורים שנבחרים מתוך שיחה, לא מקטלוג</p>
+          {c.galleryTitle && <h2 className="section-title">{c.galleryTitle}</h2>}
+          {c.gallerySub && <p className="section-sub">{c.gallerySub}</p>}
           <Gallery items={gallery} />
         </section>
 
         {/* 3. The pain */}
         <section className="section prose-sec">
           <div className="prose glass reveal-on-scroll">
-            <h2 className="section-title">לחיות עם כאב שקשה להסביר לאחרים</h2>
-            <p>יש תקופות בחיים שבהן מציאות מסוימת יושבת לך על הלב, וקשה למצוא מישהו שיבין באמת:</p>
-            <ul className="pain-list">
-              {painPoints.map((t) => <li key={t}>{t}</li>)}
-            </ul>
-            <p>
-              את רוצה לעשות משהו, לא רק לשבת ולחכות שדברים יקרו מעצמם. אבל טבעי לגמרי שיעלה בך החשש: ״אני אוציא כסף על עוד דבר שלא יעשה כלום, ושיישאר סתם תמונה יפה על הקיר?״
-            </p>
-            <p>
-              כבר ניסית דברים בעבר - תפילות, עצות, אולי ייעוץ כזה או אחר. חלקם הרגישו לך רחוקים, מנוכרים, לא מחוברים אלייך. מה שאת באמת מחפשת הוא לא ציור. את מחפשת כיוון אמיתי. מישהי שתשאל אותך שאלות מהלב, תבין את מה שעובר עלייך, ותעשה איתך משהו מכוון.
-            </p>
+            {c.painTitle && <h2 className="section-title">{c.painTitle}</h2>}
+            {c.painIntro && <p>{c.painIntro}</p>}
+            {lines(c.painList).length > 0 && (
+              <ul className="pain-list">{lines(c.painList).map((t) => <li key={t}>{t}</li>)}</ul>
+            )}
+            {c.painP1 && <p>{c.painP1}</p>}
+            {c.painP2 && <p>{c.painP2}</p>}
           </div>
         </section>
 
         {/* 4. The method, with Irit's photo beside step 1 */}
         <section id="method" className="section">
-          <h2 className="section-title">הדרך שלי איתך: שלושה שלבים פשוטים</h2>
+          {c.methodTitle && <h2 className="section-title">{c.methodTitle}</h2>}
           <div className="steps">
             {steps.map((s, i) => (
               <article
@@ -118,11 +100,11 @@ export default async function Page() {
                   </div>
                 )}
                 <div className="step-text">
-                  <h3>{s.title}</h3>
-                  {s.body.map(([lead, text]) => (
-                    <p key={lead}><strong>{lead}</strong>{text}</p>
-                  ))}
-                  <p className="step-feel"><span>איך זה מרגיש: </span>״{s.feel}״</p>
+                  {s.title && <h3>{s.title}</h3>}
+                  {(s.lead || s.body) && (
+                    <p>{s.lead && <strong>{s.lead} </strong>}{s.body}</p>
+                  )}
+                  {s.feel && <p className="step-feel"><span>{c.feelLabel} </span>״{s.feel}״</p>}
                 </div>
               </article>
             ))}
@@ -132,35 +114,35 @@ export default async function Page() {
         {/* 5. Why it's different */}
         <section className="section prose-sec">
           <div className="prose glass reveal-on-scroll">
-            <h2 className="section-title">למה זה שונה מכל מה שראית ברשת?</h2>
-            <p>יש היום המון אתרים שמוכרים אמנות:</p>
-            <ul className="pain-list">
-              <li>יש מי שמוכר הדפסות לפי חדרים בבית (סלון, מטבח) כמו בחנות עיצוב.</li>
-              <li>ויש מי שמציע מחשבונים אוטומטיים וחישובים ממוחשבים בלי לשאול אותך אף שאלה אישית.</li>
-            </ul>
-            <p>שניהם משאירים פתוחה את השאלה שהכי כואבת לך: למה דווקא הציור הזה, בשבילי, עכשיו?</p>
-            <p><strong>אני פועלת אחרת לגמרי:</strong></p>
-            <ul className="pain-list">
-              <li><strong>מתחילים בשיחה:</strong> אין כאן מכירה אוטומטית מקטלוג, אלא הקשבה אמיתית למה שאת עוברת.</li>
-              <li><strong>יש מאחורי זה שיטה:</strong> חיבור בין עולם הסמלים המסורתי לתת-מודע, כך שהבחירה מרגישה מדויקת ושורשית.</li>
-            </ul>
+            {c.diffTitle && <h2 className="section-title">{c.diffTitle}</h2>}
+            {c.diffIntro && <p>{c.diffIntro}</p>}
+            {lines(c.diffOthers).length > 0 && (
+              <ul className="pain-list">{lines(c.diffOthers).map((t) => <li key={t}>{t}</li>)}</ul>
+            )}
+            {c.diffQuestion && <p>{c.diffQuestion}</p>}
+            {c.diffLead && <p><strong>{c.diffLead}</strong></p>}
+            {lines(c.diffMine).length > 0 && (
+              <ul className="pain-list">{lines(c.diffMine).map((t) => <Item key={t} text={t} />)}</ul>
+            )}
           </div>
         </section>
 
         {/* 6. Contact */}
         <section id="contact" className="section contact">
-          <h2 className="section-title">בואי נדבר. בלי לחץ, רק כדי להרגיש מה נכון עבורך.</h2>
-          <p className="section-sub">דברי איתי לשיחת כוונה אישית, ונראה יחד מה הצעד הבא שנכון לזמן לחיים שלך.</p>
-          <div className="cta-row">
-            <a className="hero-cta" href={talk} {...waProps}>לשיחה אישית בוואטסאפ עם אירית</a>
-          </div>
+          {c.contactTitle && <h2 className="section-title">{c.contactTitle}</h2>}
+          {c.contactSub && <p className="section-sub">{c.contactSub}</p>}
+          {c.contactButton && (
+            <div className="cta-row">
+              <a className="hero-cta" href={talk} {...waProps}>{c.contactButton}</a>
+            </div>
+          )}
           <div className="contact-links">
             {profile.phone && <a className="pill" href={`tel:${profile.phone}`} dir="ltr">{profile.phone}</a>}
             {profile.instagram && <a className="pill" href={`https://instagram.com/${profile.instagram}`} target="_blank" rel="noopener noreferrer">אינסטגרם</a>}
             {profile.facebook && <a className="pill" href={profile.facebook} target="_blank" rel="noopener noreferrer">פייסבוק</a>}
             {profile.email && <a className="pill" href={`mailto:${profile.email}`}>אימייל</a>}
           </div>
-          <p className="disclaimer">הציור אינו תחליף לטיפול רפואי.</p>
+          {c.disclaimer && <p className="disclaimer">{c.disclaimer}</p>}
         </section>
       </main>
 

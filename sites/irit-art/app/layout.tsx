@@ -11,7 +11,13 @@ const frank = Frank_Ruhl_Libre({ subsets: ["hebrew", "latin"], weight: ["300", "
 export const metadata: Metadata = {
   title: "אירית אברהמוב | ציורי כוונה אישית",
   description: "ציורי כוונה אישית — ציור שנבחר מתוך שיחה, בדיוק בשבילך. אירית אברהמוב.",
-  icons: { icon: asset("/favicon.png"), apple: asset("/favicon.png") },
+  icons: {
+    icon: [
+      { url: asset("/favicon.svg"), type: "image/svg+xml" },
+      { url: asset("/favicon.png"), type: "image/png" },
+    ],
+    apple: asset("/favicon.png"),
+  },
 };
 
 export const viewport: Viewport = { themeColor: theme.bg };

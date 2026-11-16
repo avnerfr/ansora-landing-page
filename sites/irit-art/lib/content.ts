@@ -1,3 +1,5 @@
+import { defaultCopy, sanitizeCopy, type Copy } from "./copy";
+
 export type Artwork = {
   id: string;
   src: string; // "/uploads/x.jpg" (local), "/seed/x.svg", or an absolute Blob URL
@@ -19,7 +21,7 @@ export type Profile = {
   photo: string; // portrait shown next to step 1 of the method ("" = none)
 };
 
-export type SiteContent = { profile: Profile; gallery: Artwork[] };
+export type SiteContent = { profile: Profile; gallery: Artwork[]; copy: Copy };
 
 // NOTE: placeholder copy — replace with the artist's own text in /manage.
 export const defaultContent: SiteContent = {
@@ -43,6 +45,7 @@ export const defaultContent: SiteContent = {
     { id: "seed-5", src: "/seed/dream-5.svg", title: "שמיים של בוקר", w: 1100, h: 800 },
     { id: "seed-6", src: "/seed/dream-6.svg", title: "עולם קטן", w: 800, h: 900 },
   ],
+  copy: defaultCopy,
 };
 
 const str = (v: unknown, max: number) => (typeof v === "string" ? v.slice(0, max) : "");
@@ -78,5 +81,5 @@ export function sanitizeContent(raw: unknown): SiteContent {
     }))
     // only site-local paths or https URLs
     .filter((g) => validSrc(g.src));
-  return { profile, gallery };
+  return { profile, gallery, copy: sanitizeCopy(r.copy) };
 }
