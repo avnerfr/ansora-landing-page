@@ -24,8 +24,8 @@ export default async function Page() {
       <header className="nav">
         <a href="#top" className="nav-name">{profile.name}</a>
         <nav>
-          <a href="#method">השיטה</a>
           <a href="#gallery">גלריה</a>
+          <a href="#method">השיטה</a>
           <a href="#about">אודות</a>
           <a href="#contact">יצירת קשר</a>
         </nav>
@@ -43,6 +43,12 @@ export default async function Page() {
             <a className="hero-cta ghost" href="#gallery">לצפייה בציורים</a>
           </div>
           <a className="scroll-cue" href="#gallery" aria-label="גלול למטה"><span /></a>
+        </section>
+
+        <section id="gallery" className="section">
+          <h2 className="section-title">הגלריה</h2>
+          <p className="section-sub">ציורים שנבחרים מתוך שיחה, לא מקטלוג</p>
+          <Gallery items={gallery} />
         </section>
 
         <section id="method" className="section">
@@ -69,12 +75,6 @@ export default async function Page() {
             </figure>
           </section>
         )}
-
-        <section id="gallery" className="section">
-          <h2 className="section-title">הגלריה</h2>
-          <p className="section-sub">ציורים שנבחרים מתוך שיחה, לא מקטלוג</p>
-          <Gallery items={gallery} />
-        </section>
 
         <section id="about" className="section about">
           <h2 className="section-title">אודות</h2>
