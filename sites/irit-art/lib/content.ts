@@ -11,14 +11,12 @@ export type Profile = {
   tagline: string;
   heroLine: string;
   heroSub: string; // supporting sentence under the hero line
-  story: string; // the real client story shown as proof
-  about: string; // paragraphs separated by blank lines
   whatsapp: string; // digits incl. country code, e.g. 972501234567
   phone: string;
   instagram: string; // handle without @
   email: string;
   facebook: string; // full profile/page URL
-  photo: string; // portrait shown in the about section ("" = none)
+  photo: string; // portrait shown next to step 1 of the method ("" = none)
 };
 
 export type SiteContent = { profile: Profile; gallery: Artwork[] };
@@ -28,13 +26,9 @@ export const defaultContent: SiteContent = {
   profile: {
     name: "אירית אברהמוב",
     tagline: "ציורי כוונה אישית",
-    heroLine: "ציור שנבחר מתוך שיחה — בדיוק בשבילך",
-    heroSub: "אירית לא מוכרת ציור מקטלוג. היא מקשיבה למה שאת רוצה לזמן לחיים שלך, ורק אז בוחרת איתך את הציור שמכוון אליו.",
-    story:
-      "לקוחה שבעלה לא היה בקו הבריאות קנתה ציור של סוס דוהר. אחרי שהציור נכנס לבית, בעלה הרגיש הרבה יותר טוב.",
-    about:
-      "אני אירית, אמנית שמציירת חלומות.\n\nאני מאמינה שציור שנבחר נכון יכול לעורר בנו תהליך פנימי. את השיטה שלי בניתי מתוך חיבור בין פשר חלומות יהודי לפשר חלומות פרוידיאני, ומתוך שנים של שיחות עם נשים שהתמודדו עם כאב, חוסר אונים וגעגוע למשהו שעוד לא הגיע.\n\nכל מפגש מתחיל בשיחה — ורק מתוכה אנחנו בוחרות יחד את הציור שלך.",
-    whatsapp: "",
+    heroLine: "כשמרגישים לבד מול משהו שמאוד רוצים שישתנה - ציור הוא לא עוד קישוט. הוא התחלה של דרך.",
+    heroSub: "אצלי לא בוחרים תמונה מקטלוג. אנחנו מדברות קודם כל, כדי שאבחר איתך את הציור שמדויק בדיוק למה שאת רוצה לזמן לחיים שלך.",
+    whatsapp: "972543453931",
     phone: "054-3453931",
     instagram: "",
     email: "lirazlior@gmail.com",
@@ -66,8 +60,6 @@ export function sanitizeContent(raw: unknown): SiteContent {
     tagline: str(p.tagline, 120),
     heroLine: str(p.heroLine, 160),
     heroSub: str(p.heroSub, 400),
-    story: str(p.story, 800),
-    about: str(p.about, 5000),
     whatsapp: str(p.whatsapp, 20).replace(/\D/g, ""),
     phone: str(p.phone, 30),
     instagram: str(p.instagram, 60).replace(/^@/, ""),

@@ -173,14 +173,6 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
             </div>
             <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => replacePhoto(e.target.files)} />
           </div>
-          <label className="wide">
-            סיפור אמיתי (מוצג כהוכחה)
-            <textarea style={{ minHeight: 90 }} value={profile.story} onChange={(e) => (setProfile({ ...profile, story: e.target.value }), touch())} />
-          </label>
-          <label className="wide">
-            אודות (פסקה חדשה = שורה ריקה)
-            <textarea value={profile.about} onChange={(e) => (setProfile({ ...profile, about: e.target.value }), touch())} />
-          </label>
         </div>
       </section>
 
