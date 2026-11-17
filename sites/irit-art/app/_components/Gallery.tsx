@@ -86,9 +86,14 @@ export function Gallery({ items }: { items: Artwork[] }) {
               <button className="lb-btn lb-next" aria-label="הבא" onClick={(e) => (e.stopPropagation(), step(1))}>‹</button>
             </>
           )}
-          <figure onClick={(e) => e.stopPropagation()}>
+          <figure className={cur.description ? "has-text" : ""} onClick={(e) => e.stopPropagation()}>
             <img key={cur.id} src={asset(cur.src)} alt={cur.title} />
-            {cur.title && <figcaption>{cur.title}</figcaption>}
+            {(cur.title || cur.description) && (
+              <figcaption>
+                {cur.title && <h3 className="lb-title">{cur.title}</h3>}
+                {cur.description && <p className="lb-desc">{cur.description}</p>}
+              </figcaption>
+            )}
           </figure>
         </div>,
         document.body,

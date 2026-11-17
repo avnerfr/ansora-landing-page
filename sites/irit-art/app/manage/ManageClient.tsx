@@ -88,7 +88,7 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
       const added: Artwork[] = [];
       for (const [n, f] of [...files].entries()) {
         setStatus({ kind: "", text: `מעלה תמונה ${n + 1} מתוך ${files.length}…` });
-        added.push({ ...(await upload(f)), title: f.name.replace(/\.[^.]+$/, "") });
+        added.push({ ...(await upload(f)), title: f.name.replace(/\.[^.]+$/, ""), description: "" });
       }
       setGallery((g) => [...g, ...added]);
       touch();
@@ -230,7 +230,13 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
           {gallery.map((a, i) => (
             <div className="mg-piece" key={a.id}>
               <div className="mg-thumb"><img src={asset(a.src)} alt={a.title} /></div>
-              <input value={a.title} placeholder="שם הציור" onChange={(e) => patch(a.id, { title: e.target.value })} />
+              <input value={a.title} placeholder="כותרת (למשל: רכיבה על סוס)" onChange={(e) => patch(a.id, { title: e.target.value })} />
+              <textarea
+                className="mg-desc"
+                value={a.description}
+                placeholder="תיאור / הרקע לציור (למשל: סוס מייצג שליטה…) — אפשר טקסט ארוך"
+                onChange={(e) => patch(a.id, { description: e.target.value })}
+              />
               <div className="mg-row">
                 <button className="btn sm" disabled={i === 0} onClick={() => move(i, -1)} title="הזז קדימה">→</button>
                 <button className="btn sm" disabled={i === gallery.length - 1} onClick={() => move(i, 1)} title="הזז אחורה">←</button>

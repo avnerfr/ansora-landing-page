@@ -131,6 +131,19 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .lightbox figure { margin: 0; text-align: center; max-width: 100%; }
 .lightbox img { max-height: 80vh; max-width: min(92vw, 1200px); width: auto; height: auto; border-radius: 10px; box-shadow: 0 10px 60px rgba(0, 0, 0, .5); animation: zoomIn .45s cubic-bezier(.2, .7, .2, 1); }
 .lightbox figcaption { margin-top: 14px; font-family: var(--font-display), serif; font-size: 1.2rem; color: #e6cf9f; }
+.lb-title { margin: 0; font-weight: 500; font-size: 1.4rem; }
+.lb-desc { margin: 10px 0 0; font-family: var(--font-body), sans-serif; font-size: 1rem; line-height: 1.75; color: #efe6d3; white-space: pre-line; }
+/* with a description: image beside the text on wide screens, stacked on phones */
+.lightbox { overflow-y: auto; }
+.lightbox figure.has-text { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); gap: clamp(20px, 4vw, 48px); align-items: center; text-align: start; width: min(1200px, 100%); }
+.lightbox figure.has-text img { max-width: 100%; justify-self: center; }
+.lightbox figure.has-text figcaption { margin-top: 0; max-height: 78vh; overflow-y: auto; padding-inline-end: 6px; }
+@media (max-width: 780px) {
+  .lightbox { place-items: start center; }
+  .lightbox figure.has-text { grid-template-columns: 1fr; }
+  .lightbox figure.has-text img { max-height: 55vh; }
+  .lightbox figure.has-text figcaption { max-height: none; text-align: start; }
+}
 .lb-btn {
   position: absolute; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .1);
@@ -209,7 +222,8 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .btn.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 85%, #000); }
 .btn.danger:hover:not(:disabled) { border-color: #c0485a; background: rgba(192, 72, 90, .12); }
 .btn.sm { padding: 5px 12px; font-size: .85rem; }
-.mg-pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+.mg-pieces { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+.mg-desc { min-height: 110px; resize: vertical; }
 .mg-piece { display: grid; gap: 8px; padding: 10px; border-radius: 16px; border: 1px solid var(--line); background: var(--bg); }
 .mg-thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--line); }
 .mg-thumb img { width: 100%; height: 100%; object-fit: cover; }

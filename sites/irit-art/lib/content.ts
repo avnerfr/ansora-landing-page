@@ -4,6 +4,7 @@ export type Artwork = {
   id: string;
   src: string; // "/uploads/x.jpg" (local), "/seed/x.svg", or an absolute Blob URL
   title: string;
+  description: string; // longer text: the painting's meaning / background (shown in the lightbox)
   w: number;
   h: number;
 };
@@ -38,12 +39,12 @@ export const defaultContent: SiteContent = {
     photo: "/irit-profile.jpg",
   },
   gallery: [
-    { id: "seed-1", src: "/seed/dream-1.svg", title: "ירח בשדה סגול", w: 800, h: 1000 },
-    { id: "seed-2", src: "/seed/dream-2.svg", title: "מי החלום", w: 1000, h: 800 },
-    { id: "seed-3", src: "/seed/dream-3.svg", title: "פרח אור", w: 800, h: 800 },
-    { id: "seed-4", src: "/seed/dream-4.svg", title: "ענן זהב", w: 800, h: 1100 },
-    { id: "seed-5", src: "/seed/dream-5.svg", title: "שמיים של בוקר", w: 1100, h: 800 },
-    { id: "seed-6", src: "/seed/dream-6.svg", title: "עולם קטן", w: 800, h: 900 },
+    { id: "seed-1", src: "/seed/dream-1.svg", title: "ירח בשדה סגול", description: "", w: 800, h: 1000 },
+    { id: "seed-2", src: "/seed/dream-2.svg", title: "מי החלום", description: "", w: 1000, h: 800 },
+    { id: "seed-3", src: "/seed/dream-3.svg", title: "פרח אור", description: "", w: 800, h: 800 },
+    { id: "seed-4", src: "/seed/dream-4.svg", title: "ענן זהב", description: "", w: 800, h: 1100 },
+    { id: "seed-5", src: "/seed/dream-5.svg", title: "שמיים של בוקר", description: "", w: 1100, h: 800 },
+    { id: "seed-6", src: "/seed/dream-6.svg", title: "עולם קטן", description: "", w: 800, h: 900 },
   ],
   copy: defaultCopy,
 };
@@ -76,6 +77,7 @@ export function sanitizeContent(raw: unknown): SiteContent {
       id: str(g?.id, 60) || crypto.randomUUID(),
       src: str(g?.src, 600),
       title: str(g?.title, 120),
+      description: str(g?.description, 3000),
       w: num(g?.w, 800),
       h: num(g?.h, 800),
     }))
