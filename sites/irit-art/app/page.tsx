@@ -46,9 +46,9 @@ export default async function Page() {
       <header className="nav">
         <a href="#top" className="nav-name">{profile.name}</a>
         <nav>
-          <a href="#gallery">{c.navGallery}</a>
           <a href="#method">{c.navMethod}</a>
           {showOrigin && c.navOrigin && <a href="#origin">{c.navOrigin}</a>}
+          <a href="#gallery">{c.navGallery}</a>
           <a href="#contact">{c.navContact}</a>
         </nav>
       </header>
@@ -68,13 +68,6 @@ export default async function Page() {
             </div>
           </div>
           <HeroCarousel items={gallery} />
-        </section>
-
-        {/* 2. Gallery */}
-        <section id="gallery" className="section">
-          {c.galleryTitle && <h2 className="section-title">{c.galleryTitle}</h2>}
-          {c.gallerySub && <p className="section-sub">{c.gallerySub}</p>}
-          <Gallery items={gallery} />
         </section>
 
         {/* 3. The pain */}
@@ -135,7 +128,14 @@ export default async function Page() {
           </section>
         )}
 
-        {/* 5. Why it's different */}
+        {/* 5. Gallery (below the method and the origin story) */}
+        <section id="gallery" className="section">
+          {c.galleryTitle && <h2 className="section-title">{c.galleryTitle}</h2>}
+          {c.gallerySub && <p className="section-sub">{c.gallerySub}</p>}
+          <Gallery items={gallery} />
+        </section>
+
+        {/* 6. Why it's different */}
         <section className="section prose-sec">
           <div className="prose glass reveal-on-scroll">
             {c.diffTitle && <h2 className="section-title">{c.diffTitle}</h2>}
