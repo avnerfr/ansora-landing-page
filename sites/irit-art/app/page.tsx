@@ -29,6 +29,7 @@ export default async function Page() {
   const waProps = wa ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   const originParagraphs = c.originBody.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  const showOrigin = originParagraphs.length > 0 || !!profile.originPhoto;
 
   const steps = [1, 2, 3].map((n) => ({
     n,
@@ -47,6 +48,7 @@ export default async function Page() {
         <nav>
           <a href="#gallery">{c.navGallery}</a>
           <a href="#method">{c.navMethod}</a>
+          {showOrigin && c.navOrigin && <a href="#origin">{c.navOrigin}</a>}
           <a href="#contact">{c.navContact}</a>
         </nav>
       </header>
@@ -117,7 +119,7 @@ export default async function Page() {
         </section>
 
         {/* 4b. How it all began — shown only once there is text or an image */}
-        {(originParagraphs.length > 0 || profile.originPhoto) && (
+        {showOrigin && (
           <section id="origin" className="section prose-sec">
             <div className={`origin glass reveal-on-scroll${profile.originPhoto ? " has-photo" : ""}`}>
               {profile.originPhoto && (

@@ -232,7 +232,9 @@ main, .nav, .footer { position: relative; z-index: 1; }
 
 @media (max-width: 560px) {
   .masonry { columns: 2 140px; }
-  .nav nav a:nth-child(4) { display: none; }
+  .nav { flex-wrap: wrap; justify-content: center; row-gap: 2px; padding-block: 8px; }
+  .nav nav { gap: 14px; }
+  .nav nav a { font-size: .85rem; }
 }
 /* No-JS: show everything. */
 @media (scripting: none) { .piece, .reveal-on-scroll { opacity: 1; transform: none; filter: none; } }

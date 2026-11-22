@@ -22,6 +22,7 @@ const stepFields = (n: 1 | 2 | 3, title: string, lead: string, body: string, fee
 export const COPY_FIELDS: CopyField[] = [
   { key: "navGallery", group: "תפריט עליון", label: "קישור לגלריה", def: "גלריה" },
   { key: "navMethod", group: "תפריט עליון", label: "קישור לדרך שלי", def: "הדרך שלי" },
+  { key: "navOrigin", group: "תפריט עליון", label: "קישור ל״איך הכל התחיל״", def: "איך הכל התחיל" },
   { key: "navContact", group: "תפריט עליון", label: "קישור ליצירת קשר", def: "יצירת קשר" },
 
   { key: "ctaPrimary", group: "פתיחה", label: "טקסט הכפתור הראשי (וואטסאפ)", def: "דברי איתי בוואטסאפ" },
