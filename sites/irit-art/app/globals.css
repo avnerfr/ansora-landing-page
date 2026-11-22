@@ -119,7 +119,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
   aspect-ratio: 4 / 5; overflow: hidden; border-radius: 20px; border: 2px solid var(--gold);
   box-shadow: 0 0 0 8px color-mix(in srgb, var(--gold) 14%, transparent), 0 16px 40px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.origin-photo img { width: 100%; height: 100%; object-fit: cover; }
+.origin-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; }
 .origin-text .section-title { text-align: start; font-size: clamp(1.7rem, 3.8vw, 2.4rem); margin-bottom: 18px; }
 .origin-text .section-title::after { margin-inline: 0; }
 .origin-text p { margin: 0 0 1.1em; }

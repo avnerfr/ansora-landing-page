@@ -38,7 +38,7 @@ export const defaultContent: SiteContent = {
     email: "lirazlior@gmail.com",
     facebook: "https://www.facebook.com/profile.php?id=100006808035232",
     photo: "/irit-profile.jpg",
-    originPhoto: "",
+    originPhoto: "/irit-profile.jpg", // same portrait as step 1 until Irit uploads another
   },
   gallery: [
     { id: "seed-1", src: "/seed/dream-1.svg", title: "ירח בשדה סגול", description: "", w: 800, h: 1000 },
