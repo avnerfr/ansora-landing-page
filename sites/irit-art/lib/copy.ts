@@ -84,7 +84,8 @@ export const COPY_FIELDS: CopyField[] = [
     group: "איך הכל התחיל",
     label: "הסיפור (פסקה חדשה = שורה ריקה). אם גם הטקסט וגם התמונה ריקים, הקטע לא יוצג באתר",
     rows: 9,
-    def: "",
+    // Starter draft from the client's own value-proposition notes — Irit should rewrite it in her own words.
+    def: "הכל התחיל מסיפור אחד. לקוחה שבעלה לא היה בקו הבריאות קנתה ציור של סוס דוהר, ואחרי שהציור נכנס לבית, בעלה הרגיש הרבה יותר טוב.\n\nמאז אני יודעת שציור שנבחר נכון הוא הרבה יותר מקישוט, ולכן אני מתחילה תמיד בשיחה.",
   },
 
   { key: "diffTitle", group: "למה זה שונה", label: "כותרת", def: "למה זה שונה מכל מה שראית ברשת?" },
