@@ -1,13 +1,12 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useCallback, useEffect, useState } from "react";
 import { asset } from "@/lib/base";
 import type { Artwork } from "@/lib/content";
+import { Lightbox } from "./Lightbox";
 
 export function Gallery({ items }: { items: Artwork[] }) {
   const [open, setOpen] = useState<number | null>(null);
   const [visible, setVisible] = useState<Set<string>>(new Set());
-  const touchX = useRef<number | null>(null);
 
   // Reveal each piece as it scrolls into view.
   useEffect(() => {
@@ -25,26 +24,9 @@ export function Gallery({ items }: { items: Artwork[] }) {
   }, [items]);
 
   const step = useCallback((d: number) => setOpen((i) => (i === null ? i : (i + d + items.length) % items.length)), [items.length]);
-
-  useEffect(() => {
-    if (open === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
-      // RTL: the "next" arrow points left.
-      if (e.key === "ArrowLeft") step(1);
-      if (e.key === "ArrowRight") step(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [open, step]);
+  const close = useCallback(() => setOpen(null), []);
 
   if (!items.length) return <p className="muted center">הציורים יעלו בקרוב</p>;
-  const cur = open === null ? null : items[open];
 
   return (
     <>
@@ -64,40 +46,7 @@ export function Gallery({ items }: { items: Artwork[] }) {
         ))}
       </div>
 
-      {cur && createPortal(
-        <div
-          className="lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={cur.title || "ציור"}
-          onClick={() => setOpen(null)}
-          onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
-          onTouchEnd={(e) => {
-            if (touchX.current === null) return;
-            const dx = e.changedTouches[0].clientX - touchX.current;
-            touchX.current = null;
-            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1); // swipe left → next (RTL)
-          }}
-        >
-          <button className="lb-btn lb-close" aria-label="סגור" onClick={() => setOpen(null)}>×</button>
-          {items.length > 1 && (
-            <>
-              <button className="lb-btn lb-prev" aria-label="הקודם" onClick={(e) => (e.stopPropagation(), step(-1))}>›</button>
-              <button className="lb-btn lb-next" aria-label="הבא" onClick={(e) => (e.stopPropagation(), step(1))}>‹</button>
-            </>
-          )}
-          <figure className={cur.description ? "has-text" : ""} onClick={(e) => e.stopPropagation()}>
-            <img key={cur.id} src={asset(cur.src)} alt={cur.title} />
-            {(cur.title || cur.description) && (
-              <figcaption>
-                {cur.title && <h3 className="lb-title">{cur.title}</h3>}
-                {cur.description && <p className="lb-desc">{cur.description}</p>}
-              </figcaption>
-            )}
-          </figure>
-        </div>,
-        document.body,
-      )}
+      {open !== null && <Lightbox items={items} index={open} onClose={close} onStep={step} />}
     </>
   );
 }

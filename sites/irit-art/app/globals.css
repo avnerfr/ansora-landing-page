@@ -34,12 +34,21 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .nav nav a:hover { color: var(--gold); }
 
 /* ---------- hero ---------- */
+/* Two columns: text first (RTL puts it on the right), carousel second (left). One column on phones. */
 .hero {
-  min-height: calc(100svh - 56px);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 24px 20px 90px; position: relative;
+  min-height: calc(100svh - 56px); max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px);
+  padding: 32px clamp(16px, 4vw, 48px) 56px; position: relative;
 }
-.hero-logo { width: min(420px, 78vw); animation: float 9s ease-in-out infinite, fadeUp 1.6s ease both; }
+.hero-text { display: flex; flex-direction: column; align-items: flex-start; text-align: start; min-width: 0; }
+.hero.solo { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.hero.solo .hero-text { align-items: center; text-align: center; }
+.hero-text .cta-row { justify-content: flex-start; }
+.hero.solo .cta-row { justify-content: center; }
+@media (max-width: 860px) {
+  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-top: 20px; }
+}
+.hero-logo { width: min(380px, 78vw); animation: float 9s ease-in-out infinite, fadeUp 1.6s ease both; }
 .hero-logo img { width: 100%; height: auto; }
 .hero-line {
   margin: 14px 0 22px; font-family: var(--font-display), serif; font-weight: 500;
@@ -58,9 +67,33 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .hero-cta:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--accent) 85%, #000); box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 38%, transparent); }
 .hero-cta.ghost { background: transparent; color: var(--accent); box-shadow: none; }
 .hero-cta.ghost:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: none; }
-.scroll-cue { position: absolute; bottom: 28px; width: 24px; height: 40px; border: 1.5px solid var(--gold); border-radius: 14px; opacity: .8; }
-.scroll-cue span { position: absolute; top: 7px; left: 50%; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: var(--gold); animation: cue 2s ease-in-out infinite; }
-@keyframes cue { 0% { transform: translateY(0); opacity: 1; } 80%, 100% { transform: translateY(14px); opacity: 0; } }
+
+/* hero carousel */
+.hc { width: 100%; max-width: 520px; justify-self: center; animation: fadeUp 1.6s .3s ease both; }
+.hc-frame {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 22px;
+  border: 2px solid var(--gold); background: var(--surface);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--gold) 14%, transparent), 0 18px 48px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.hc-slide {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; margin: 0; border: 0; background: none;
+  cursor: zoom-in; opacity: 0; transition: opacity .9s ease; pointer-events: none;
+}
+.hc-slide.on { opacity: 1; pointer-events: auto; }
+.hc-slide img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 10px; }
+.hc-btn {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 38px; height: 38px; border: 0; border-radius: 50%;
+  display: grid; place-items: center; font-size: 24px; line-height: 1; cursor: pointer; color: var(--surface);
+  background: color-mix(in srgb, var(--accent) 70%, transparent); transition: background .25s;
+}
+.hc-btn:hover { background: var(--accent); }
+.hc-prev { right: 10px; }
+.hc-next { left: 10px; }
+.hc-cap { min-height: 2.2em; margin-top: 14px; text-align: center; font-family: var(--font-display), serif; font-size: 1.3rem; color: var(--accent); }
+.hc-dots { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
+.hc-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 50%; cursor: pointer; background: var(--line); transition: background .3s, transform .3s; }
+.hc-dots button.on { background: var(--gold); transform: scale(1.35); }
+@media (max-width: 860px) { .hc { max-width: 420px; } }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; } }
 
@@ -80,6 +113,22 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .prose { max-width: 800px; margin: 0 auto; padding: clamp(26px, 5vw, 54px); font-size: clamp(1.02rem, 1.6vw, 1.15rem); }
 .prose .section-title { font-size: clamp(1.6rem, 3.6vw, 2.2rem); margin-bottom: 22px; }
 .prose p { margin: 0 0 1.1em; }
+.origin { max-width: 980px; margin: 0 auto; padding: clamp(26px, 5vw, 54px); font-size: clamp(1.02rem, 1.6vw, 1.15rem); }
+.origin.has-photo { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: clamp(24px, 5vw, 52px); align-items: center; }
+.origin-photo {
+  aspect-ratio: 4 / 5; overflow: hidden; border-radius: 20px; border: 2px solid var(--gold);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--gold) 14%, transparent), 0 16px 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.origin-photo img { width: 100%; height: 100%; object-fit: cover; }
+.origin-text .section-title { text-align: start; font-size: clamp(1.7rem, 3.8vw, 2.4rem); margin-bottom: 18px; }
+.origin-text .section-title::after { margin-inline: 0; }
+.origin-text p { margin: 0 0 1.1em; }
+.origin:not(.has-photo) .origin-text .section-title { text-align: center; }
+.origin:not(.has-photo) .origin-text .section-title::after { margin-inline: auto; }
+@media (max-width: 720px) {
+  .origin.has-photo { grid-template-columns: 1fr; }
+  .origin-photo { width: min(300px, 80%); margin: 0 auto; }
+}
 .pain-list { margin: 0 0 1.2em; padding: 0; list-style: none; display: grid; gap: 10px; }
 .pain-list li { position: relative; padding-inline-start: 26px; }
 .pain-list li::before { content: "✦"; position: absolute; inset-inline-start: 0; top: .1em; font-size: .8rem; color: var(--gold); }

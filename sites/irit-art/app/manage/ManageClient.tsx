@@ -61,6 +61,11 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
   const addInput = useRef<HTMLInputElement>(null);
   const replaceInput = useRef<HTMLInputElement>(null);
   const photoInput = useRef<HTMLInputElement>(null);
+  const photoKey = useRef<"photo" | "originPhoto">("photo");
+  const pickPhoto = (key: "photo" | "originPhoto") => {
+    photoKey.current = key;
+    photoInput.current?.click();
+  };
 
   const touch = () => {
     setDirty(true);
@@ -118,11 +123,12 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
 
   async function replacePhoto(files: FileList | null) {
     if (!files?.[0]) return;
+    const key = photoKey.current;
     setBusy(true);
-    setStatus({ kind: "", text: "מעלה תמונת פרופיל…" });
+    setStatus({ kind: "", text: "מעלה תמונה…" });
     try {
       const { src } = await upload(files[0]);
-      setProfile((p) => ({ ...p, photo: src }));
+      setProfile((p) => ({ ...p, [key]: src }));
       touch();
     } catch (e) {
       setStatus({ kind: "err", text: `ההעלאה נכשלה: ${e instanceof Error ? e.message : "שגיאה"}` });
@@ -178,11 +184,18 @@ export function ManageClient({ initial }: { initial: SiteContent }) {
           <div className="wide mg-photo">
             {profile.photo ? <img src={asset(profile.photo)} alt="תמונת פרופיל" /> : <div className="mg-photo-empty">אין תמונה</div>}
             <div className="mg-row">
-              <button className="btn sm" disabled={busy} onClick={() => photoInput.current?.click()}>החלפת תמונת פרופיל</button>
+              <button className="btn sm" disabled={busy} onClick={() => pickPhoto("photo")}>החלפת תמונת פרופיל (ליד שלב 1)</button>
               {profile.photo && <button className="btn sm danger" onClick={() => (setProfile({ ...profile, photo: "" }), touch())}>הסרה</button>}
             </div>
-            <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => replacePhoto(e.target.files)} />
           </div>
+          <div className="wide mg-photo">
+            {profile.originPhoto ? <img src={asset(profile.originPhoto)} alt="תמונה לקטע איך הכל התחיל" /> : <div className="mg-photo-empty">אין תמונה</div>}
+            <div className="mg-row">
+              <button className="btn sm" disabled={busy} onClick={() => pickPhoto("originPhoto")}>תמונה לקטע ״איך הכל התחיל״</button>
+              {profile.originPhoto && <button className="btn sm danger" onClick={() => (setProfile({ ...profile, originPhoto: "" }), touch())}>הסרה</button>}
+            </div>
+          </div>
+          <input ref={photoInput} type="file" accept="image/jpeg,image/png,image/webp" onChange={(e) => replacePhoto(e.target.files)} />
         </div>
       </section>
 

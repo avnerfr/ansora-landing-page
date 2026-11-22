@@ -20,6 +20,7 @@ export type Profile = {
   email: string;
   facebook: string; // full profile/page URL
   photo: string; // portrait shown next to step 1 of the method ("" = none)
+  originPhoto: string; // image for the "איך הכל התחיל" section ("" = none)
 };
 
 export type SiteContent = { profile: Profile; gallery: Artwork[]; copy: Copy };
@@ -37,6 +38,7 @@ export const defaultContent: SiteContent = {
     email: "lirazlior@gmail.com",
     facebook: "https://www.facebook.com/profile.php?id=100006808035232",
     photo: "/irit-profile.jpg",
+    originPhoto: "",
   },
   gallery: [
     { id: "seed-1", src: "/seed/dream-1.svg", title: "ירח בשדה סגול", description: "", w: 800, h: 1000 },
@@ -70,6 +72,7 @@ export function sanitizeContent(raw: unknown): SiteContent {
     email: str(p.email, 120),
     facebook: str(p.facebook, 300).startsWith("https://") ? str(p.facebook, 300) : "",
     photo: typeof p.photo === "string" ? validSrc(p.photo) : defaultContent.profile.photo,
+    originPhoto: typeof p.originPhoto === "string" ? validSrc(p.originPhoto) : defaultContent.profile.originPhoto,
   };
   const gallery: Artwork[] = (Array.isArray(r.gallery) ? r.gallery : [])
     .slice(0, 200)

@@ -3,6 +3,7 @@ import { lines } from "@/lib/copy";
 import { getContent } from "@/lib/store";
 import { Dreamscape } from "./_components/Dreamscape";
 import { Gallery } from "./_components/Gallery";
+import { HeroCarousel } from "./_components/HeroCarousel";
 
 // Content is edited at runtime from /manage, so render per request.
 export const dynamic = "force-dynamic";
@@ -27,6 +28,8 @@ export default async function Page() {
   const talk = wa || (profile.phone ? `tel:${profile.phone}` : "#contact");
   const waProps = wa ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
+  const originParagraphs = c.originBody.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+
   const steps = [1, 2, 3].map((n) => ({
     n,
     title: c[`step${n}Title`],
@@ -50,17 +53,19 @@ export default async function Page() {
 
       <main id="top">
         {/* 1. Hero */}
-        <section className="hero">
-          <div className="hero-logo">
-            <img src={asset("/logo.png")} alt={`${profile.name} — ${profile.tagline}`} width={1536} height={1024} />
+        <section className={`hero${gallery.length ? "" : " solo"}`}>
+          <div className="hero-text">
+            <div className="hero-logo">
+              <img src={asset("/logo.png")} alt={`${profile.name} — ${profile.tagline}`} width={1536} height={1024} />
+            </div>
+            {profile.heroLine && <h1 className="hero-line">{profile.heroLine}</h1>}
+            {profile.heroSub && <p className="hero-sub">{profile.heroSub}</p>}
+            <div className="cta-row">
+              {c.ctaPrimary && <a className="hero-cta" href={talk} {...waProps}>{c.ctaPrimary}</a>}
+              {c.ctaGhost && <a className="hero-cta ghost" href="#gallery">{c.ctaGhost}</a>}
+            </div>
           </div>
-          {profile.heroLine && <h1 className="hero-line">{profile.heroLine}</h1>}
-          {profile.heroSub && <p className="hero-sub">{profile.heroSub}</p>}
-          <div className="cta-row">
-            {c.ctaPrimary && <a className="hero-cta" href={talk} {...waProps}>{c.ctaPrimary}</a>}
-            {c.ctaGhost && <a className="hero-cta ghost" href="#gallery">{c.ctaGhost}</a>}
-          </div>
-          <a className="scroll-cue" href="#gallery" aria-label="גלול למטה"><span /></a>
+          <HeroCarousel items={gallery} />
         </section>
 
         {/* 2. Gallery */}
@@ -110,6 +115,23 @@ export default async function Page() {
             ))}
           </div>
         </section>
+
+        {/* 4b. How it all began — shown only once there is text or an image */}
+        {(originParagraphs.length > 0 || profile.originPhoto) && (
+          <section id="origin" className="section prose-sec">
+            <div className={`origin glass reveal-on-scroll${profile.originPhoto ? " has-photo" : ""}`}>
+              {profile.originPhoto && (
+                <div className="origin-photo">
+                  <img src={asset(profile.originPhoto)} alt={c.originTitle || ""} loading="lazy" />
+                </div>
+              )}
+              <div className="origin-text">
+                {c.originTitle && <h2 className="section-title">{c.originTitle}</h2>}
+                {originParagraphs.map((p, k) => <p key={k}>{p}</p>)}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* 5. Why it's different */}
         <section className="section prose-sec">
